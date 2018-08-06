@@ -12,6 +12,7 @@ namespace BackendApi.DB.DataModel
         public string PROJECT_NM { get; set; }
         public string ORDER_UNIT { get; set; }
         public string SALES_PERSON { get; set; }
+        // Null Check is need
         public DateTime DEPARTURE_DATE { get; set; }
         public DateTime DELIVERY_DATE { get; set; }
         public string REMARK { get; set; }

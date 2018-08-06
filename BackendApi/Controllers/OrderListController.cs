@@ -110,36 +110,59 @@ namespace BackendApi.Controllers
         [EnableCors("CorsPolicy")]
         public ActionResult<string> Delete(string ORDER_NO)
         {
-            ORDER_LIST_MST delEntity = new ORDER_LIST_MST() { ORDER_NO = ORDER_NO };
-            if (delEntity.Equals(null))
+            Boolean isSuccess = true;
+            string data = "Delete success";
+            if (!String.IsNullOrEmpty(ORDER_NO))
             {
-                return "";
+                String[] ORDER_NO_LIST = ORDER_NO.Split(",");
+
+                foreach (string ORDER_ITEM in ORDER_NO_LIST)
+                {
+                    ORDER_LIST_MST delEntity = new ORDER_LIST_MST() { ORDER_NO = ORDER_ITEM };
+
+                    if (delEntity.Equals(null))
+                    {
+                        isSuccess = false;
+                        data = "No such data.";
+                        break;
+                    }
+                    else
+                    {
+                        // FIND ORDER DETAIL
+                        int deteilNum = myContext.ORDER_LIST_DETAIL.Count(d => d.ORDER_NO == ORDER_ITEM);
+                        if (deteilNum > 0)
+                        {
+                            isSuccess = false;
+                            data = ORDER_ITEM + " has detail info.";
+                            break;
+                        }
+                        // FIND DB ITEM
+                        myContext.ORDER_LIST_MST.Attach(delEntity);
+                        // DELETE DB ITEM
+                        var delRes = myContext.ORDER_LIST_MST.Remove(delEntity);
+                        if (delRes.State == EntityState.Deleted)
+                        {
+                            // SAVE CHANGES AND DO NOT RETURN
+                            myContext.SaveChanges();
+                        }
+                        else
+                        {
+                            isSuccess = false;
+                            data = "No such data.";
+                            break;
+                        }
+                    }
+                }
             }
             else
             {
-                // FIND DB ITEM
-                myContext.ORDER_LIST_MST.Attach(delEntity);
-                // DELETE DB ITEM
-                var delRes = myContext.ORDER_LIST_MST.Remove(delEntity);
-                if (delRes.State == EntityState.Deleted)
-                {
-                    // SAVE CHANGES
-                    myContext.SaveChanges();
-                    // MAKE RETURN JSON
-                    JsonRes res = new JsonRes();
-                    res.isSuccess = true;
-                    res.data = "Delete success.";
-                    // RETURN DELETE RESULT
-                    return JsonConvert.SerializeObject(res);
-                }
-                else
-                {
-                    JsonRes res = new JsonRes();
-                    res.isSuccess = false;
-                    res.data = "Delete failure.";
-                    return JsonConvert.SerializeObject(res);
-                }
+                isSuccess = false;
+                data = "No such data.";
             }
+            JsonRes res = new JsonRes();
+            res.isSuccess = isSuccess;
+            res.data = data;
+            return JsonConvert.SerializeObject(res);
         }
     }
 }
