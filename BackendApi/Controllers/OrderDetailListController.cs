@@ -42,8 +42,7 @@ namespace BackendApi.Controllers
             }
             else
             {
-                String returnJson = JsonConvert.SerializeObject(orderListDetailEntity.ToList());
-                return returnJson;
+                return JsonConvert.SerializeObject(orderListDetailEntity.ToList());
             }
         }
     }
