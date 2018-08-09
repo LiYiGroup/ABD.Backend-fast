@@ -16,5 +16,6 @@ namespace BackendApi.DB.DataModel
         public DateTime DEPARTURE_DATE { get; set; }
         public DateTime DELIVERY_DATE { get; set; }
         public string REMARK { get; set; }
+        public string APPLICATION_ENGINEER { get; set; }
     }
 }

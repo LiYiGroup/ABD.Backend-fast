@@ -12,37 +12,28 @@ namespace BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderDetailListController : ControllerBase
+    public class OrderListDetailFormController : ControllerBase
     {
         private readonly ABD_DbContext myContext;
 
-        public OrderDetailListController(ABD_DbContext context)
+        public OrderListDetailFormController(ABD_DbContext context)
         {
             myContext = context;
         }
 
-        // GET api/orderDetailList
-        [HttpGet]
-        [EnableCors("CorsPolicy")]
-        public ActionResult<string> Get()
-        {
-            String returnJson = JsonConvert.SerializeObject(myContext.ORDER_LIST_DETAIL.ToList());
-            return returnJson;
-        }
-
-        // GET api/orderDetailList/ORDER_NO_001
+        // GET api/orderListDetailForm/ORDER_NO_001
         [HttpGet("{ORDER_NO}")]
         [EnableCors("CorsPolicy")]
         public ActionResult<string> Get(string ORDER_NO)
         {
-            var orderListDetailEntity = myContext.ORDER_LIST_DETAIL.Where(d => d.ORDER_NO == ORDER_NO);
+            var orderListDetailEntity = myContext.ORDER_LIST_MST.Where(d => d.ORDER_NO == ORDER_NO).First();
             if (orderListDetailEntity.Equals(null))
             {
                 return "";
             }
             else
             {
-                return JsonConvert.SerializeObject(orderListDetailEntity.ToList());
+                return JsonConvert.SerializeObject(orderListDetailEntity);
             }
         }
     }

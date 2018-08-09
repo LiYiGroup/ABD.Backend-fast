@@ -99,7 +99,7 @@ namespace BackendApi.Controllers
             }
         }
 
-        // PUT api/orderList/5
+        // PUT api/orderList/ORDER_NO_001
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
