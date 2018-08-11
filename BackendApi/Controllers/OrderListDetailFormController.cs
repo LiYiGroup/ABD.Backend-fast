@@ -52,7 +52,7 @@ namespace BackendApi.Controllers
 
             if (!String.IsNullOrEmpty(postedEntity.ORDER_NO))
             {
-                orderListEntity = orderListEntity.Where(d => d.ORDER_NO.Contains(postedEntity.ORDER_NO));
+                orderListEntity = orderListEntity.Where(d => d.ORDER_NO.Equals(postedEntity.ORDER_NO));
             }
 
             if (orderListEntity.Count() == 0)

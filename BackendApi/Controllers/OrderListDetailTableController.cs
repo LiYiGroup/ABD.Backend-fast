@@ -113,5 +113,46 @@ namespace BackendApi.Controllers
             res.data = data;
             return JsonConvert.SerializeObject(res);
         }
+
+        // POST api/orderListDetailTable
+        [HttpPost]
+        [EnableCors("CorsPolicy")]
+        // JObject here is very very important...
+        public ActionResult<string> Post([FromBody]JObject entityObj)
+        {
+
+            ORDER_LIST_DETAIL postedEntity = entityObj.ToObject<ORDER_LIST_DETAIL>();
+
+            var orderListEntity = myContext.ORDER_LIST_DETAIL.Where(d => d.ORDER_NO != null && d.BUMP_ID != null);
+
+            if (!String.IsNullOrEmpty(postedEntity.ORDER_NO) && !String.IsNullOrEmpty(postedEntity.BUMP_ID))
+            {
+                orderListEntity = orderListEntity
+                    .Where(d => d.ORDER_NO.Equals(postedEntity.ORDER_NO) && d.BUMP_ID.Equals(postedEntity.BUMP_ID));
+            }
+
+            if (orderListEntity.Count() == 0)
+            {
+                // INSERT
+                myContext.ORDER_LIST_DETAIL.Add(postedEntity);
+                myContext.SaveChanges();
+                return "";
+            }
+            else
+            {
+                orderListEntity.First().BUMP_NM = postedEntity.BUMP_NM;
+                orderListEntity.First().STATION = postedEntity.STATION;
+                orderListEntity.First().BUMP_TYPE = postedEntity.BUMP_TYPE;
+                orderListEntity.First().NUMBER = postedEntity.NUMBER;
+                orderListEntity.First().FLOW = postedEntity.FLOW;
+                orderListEntity.First().LIFT = postedEntity.LIFT;
+                orderListEntity.First().MATERIAL = postedEntity.MATERIAL;
+                orderListEntity.First().SEAL = postedEntity.SEAL;
+                orderListEntity.First().STATUS = postedEntity.STATUS;
+                orderListEntity.First().REMARK = postedEntity.REMARK;
+                myContext.SaveChanges();
+                return "";
+            }
+        }
     }
 }
