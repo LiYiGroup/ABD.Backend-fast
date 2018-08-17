@@ -10,6 +10,7 @@ using Newtonsoft.Json.Linq;
 using BackendApi.DB.SearchModel;
 using BackendApi.DB.DataModel;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace BackendApi.Controllers
 {
@@ -32,13 +33,6 @@ namespace BackendApi.Controllers
         {
             String returnJson = JsonConvert.SerializeObject(myContext.ORDER_LIST_MST.ToList());
             return returnJson;
-        }
-
-        // GET api/orderList
-        [HttpGet("{searchOrderItem}")]
-        public ActionResult<string> Get(string searchCondition)
-        {
-            return "";
         }
 
         // POST api/orderList
@@ -118,9 +112,8 @@ namespace BackendApi.Controllers
 
                 foreach (string ORDER_ITEM in ORDER_NO_LIST)
                 {
-                    ORDER_LIST_MST delEntity = new ORDER_LIST_MST() { ORDER_NO = ORDER_ITEM };
-
-                    if (delEntity.Equals(null))
+                    ORDER_DETAIL_MST delMstEntity = new ORDER_DETAIL_MST() { ORDER_NO = ORDER_ITEM };
+                    if (delMstEntity.Equals(null))
                     {
                         isSuccess = false;
                         data = "No such data.";
@@ -129,6 +122,7 @@ namespace BackendApi.Controllers
                     else
                     {
                         // FIND ORDER DETAIL
+                        /*
                         int deteilNum = myContext.ORDER_LIST_DETAIL.Count(d => d.ORDER_NO == ORDER_ITEM);
                         if (deteilNum > 0)
                         {
@@ -136,11 +130,22 @@ namespace BackendApi.Controllers
                             data = ORDER_ITEM + " has detail info.";
                             break;
                         }
+                        */
                         // FIND DB ITEM
-                        myContext.ORDER_LIST_MST.Attach(delEntity);
+                        myContext.ORDER_LIST_MST.Attach(delMstEntity);
                         // DELETE DB ITEM
-                        var delRes = myContext.ORDER_LIST_MST.Remove(delEntity);
-                        if (delRes.State == EntityState.Deleted)
+                        myContext.ORDER_LIST_MST.Remove(delMstEntity);
+                        // DELETE DETAIL ITEM
+                        int deteilNum = myContext.ORDER_LIST_DETAIL.Count(d => d.ORDER_NO == ORDER_ITEM);
+                        if (deteilNum > 0)
+                        {
+                            foreach (ORDER_LIST_DETAIL DetailEntity in myContext.ORDER_LIST_DETAIL.Where(d => d.ORDER_NO == ORDER_ITEM).ToList())
+                            {
+                                myContext.ORDER_LIST_DETAIL.Remove(DetailEntity);
+                            }
+                        }
+                        // NEED TO CHECK DELETE RESULT HERE
+                        if (true)
                         {
                             // SAVE CHANGES AND DO NOT RETURN
                             myContext.SaveChanges();

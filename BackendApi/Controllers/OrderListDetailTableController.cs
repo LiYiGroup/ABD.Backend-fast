@@ -125,15 +125,17 @@ namespace BackendApi.Controllers
 
             var orderListEntity = myContext.ORDER_LIST_DETAIL.Where(d => d.ORDER_NO != null && d.BUMP_ID != null);
 
-            if (!String.IsNullOrEmpty(postedEntity.ORDER_NO) && !String.IsNullOrEmpty(postedEntity.BUMP_ID))
+            if (!String.IsNullOrEmpty(postedEntity.ORDER_NO) && !String.IsNullOrEmpty(postedEntity.BUMP_TYPE) && !String.IsNullOrEmpty(postedEntity.MATERIAL))
             {
                 orderListEntity = orderListEntity
-                    .Where(d => d.ORDER_NO.Equals(postedEntity.ORDER_NO) && d.BUMP_ID.Equals(postedEntity.BUMP_ID));
+                    .Where(d => d.ORDER_NO.Equals(postedEntity.ORDER_NO) && d.BUMP_ID.Equals(postedEntity.BUMP_TYPE + "_" + postedEntity.MATERIAL));
             }
 
             if (orderListEntity.Count() == 0)
             {
                 // INSERT
+                // MAKE BUMP ID
+                postedEntity.BUMP_ID = postedEntity.BUMP_TYPE + "_" + postedEntity.MATERIAL;
                 myContext.ORDER_LIST_DETAIL.Add(postedEntity);
                 myContext.SaveChanges();
                 return "";

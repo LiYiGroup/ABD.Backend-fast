@@ -46,7 +46,7 @@ namespace BackendApi.Controllers
         public ActionResult<string> Post([FromBody]JObject entityObj)
         {
 
-            ORDER_LIST_MST postedEntity = entityObj.ToObject<ORDER_LIST_MST>();
+            ORDER_DETAIL_MST postedEntity = entityObj.ToObject<ORDER_DETAIL_MST>();
 
             var orderListEntity = myContext.ORDER_LIST_MST.Where(d => d.ORDER_NO != null);
 
@@ -68,8 +68,8 @@ namespace BackendApi.Controllers
                 orderListEntity.First().PROJECT_NM = postedEntity.PROJECT_NM;
                 orderListEntity.First().ORDER_UNIT = postedEntity.ORDER_UNIT;
                 orderListEntity.First().SALES_PERSON = postedEntity.SALES_PERSON;
-                orderListEntity.First().DEPARTURE_DATE = postedEntity.DEPARTURE_DATE;
-                orderListEntity.First().DELIVERY_DATE = postedEntity.DELIVERY_DATE;
+                orderListEntity.First().DEPARTURE_DATE = postedEntity.DEPARTURE_DATE.ToLocalTime();
+                orderListEntity.First().DELIVERY_DATE = postedEntity.DELIVERY_DATE.ToLocalTime();
                 orderListEntity.First().REMARK = postedEntity.REMARK;
                 orderListEntity.First().APPLICATION_ENGINEER = postedEntity.APPLICATION_ENGINEER;
                 myContext.SaveChanges();

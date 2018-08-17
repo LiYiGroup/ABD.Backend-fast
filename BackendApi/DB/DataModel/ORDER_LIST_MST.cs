@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BackendApi.DB.DataModel
 {
-    public class ORDER_LIST_MST
+    public class ORDER_DETAIL_MST
     {
         public string ORDER_NO { get; set; }
         public string CONTRACT_NO { get; set; }
