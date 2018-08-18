@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 
 namespace BackendApi.Controllers
 {
@@ -41,9 +43,16 @@ namespace BackendApi.Controllers
                 {
                     string fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
                     string fullPath = Path.Combine(newPath, fileName);
-                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    using (FileStream stream = new FileStream(fullPath, FileMode.Create))
                     {
                         file.CopyTo(stream);
+                        IWorkbook workbook = WorkbookFactory.Create(stream);
+                        ISheet sheet = workbook.GetSheetAt(0);
+                        if (sheet != null)
+                        {
+                            IRow testRow = sheet.GetRow(1);
+                            ICell testCell = testRow.GetCell(1);
+                        }
                     }
                 }
                 return "Upload Successful.";
