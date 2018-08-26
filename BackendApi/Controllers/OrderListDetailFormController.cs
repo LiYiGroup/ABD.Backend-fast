@@ -45,15 +45,15 @@ namespace BackendApi.Controllers
         // JObject here is very very important...
         public ActionResult<string> Post([FromBody]JObject entityObj)
         {
+            ORDER_LIST_MST postedEntity = entityObj.ToObject<ORDER_LIST_MST>();
 
-            ORDER_DETAIL_MST postedEntity = entityObj.ToObject<ORDER_DETAIL_MST>();
-
-            var orderListEntity = myContext.ORDER_LIST_MST.Where(d => d.ORDER_NO != null);
-
-            if (!String.IsNullOrEmpty(postedEntity.ORDER_NO))
+            // 校验主键
+            if (String.IsNullOrEmpty(postedEntity.ORDER_NO))
             {
-                orderListEntity = orderListEntity.Where(d => d.ORDER_NO.Equals(postedEntity.ORDER_NO));
+                return "";
             }
+
+            var orderListEntity = myContext.ORDER_LIST_MST.Where(d => d.ORDER_NO.Equals(postedEntity.ORDER_NO));
 
             if (orderListEntity.Count() == 0)
             {
