@@ -58,7 +58,7 @@ namespace BackendApi.Controllers
             string data = "Delete success";
             if (!String.IsNullOrEmpty(BUMP_INFO))
             {
-                string[] ORDER_NO_AND_BUMP_IDS = BUMP_INFO.Split("卍");
+                string[] ORDER_NO_AND_BUMP_IDS = BUMP_INFO.Split("|DASH|");
                 string[] BUMP_ID_LIST = {};
                 string ORDER_NO_T = String.Empty;
 

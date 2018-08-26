@@ -112,7 +112,7 @@ namespace BackendApi.Controllers
 
                 foreach (string ORDER_ITEM in ORDER_NO_LIST)
                 {
-                    ORDER_DETAIL_MST delMstEntity = new ORDER_DETAIL_MST() { ORDER_NO = ORDER_ITEM };
+                    ORDER_LIST_MST delMstEntity = new ORDER_LIST_MST() { ORDER_NO = ORDER_ITEM };
                     if (delMstEntity.Equals(null))
                     {
                         isSuccess = false;

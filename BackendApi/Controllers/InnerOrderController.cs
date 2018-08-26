@@ -28,7 +28,8 @@ namespace BackendApi.Controllers
             String returnJson = String.Empty;
             if (!String.IsNullOrEmpty(BUMP_INFO))
             {
-                string[] ORDER_NO_AND_BUMP_IDS = BUMP_INFO.Split("卍");
+                BUMP_INFO = BUMP_INFO.Replace("|SLASH|", "/");
+                string[] ORDER_NO_AND_BUMP_IDS = BUMP_INFO.Split("|DASH|");
                 string BUMP_ID_T = String.Empty;
                 string ORDER_NO_T = String.Empty;
 
