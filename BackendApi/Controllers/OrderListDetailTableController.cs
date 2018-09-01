@@ -123,13 +123,14 @@ namespace BackendApi.Controllers
 
             ORDER_LIST_DETAIL postedEntity = entityObj.ToObject<ORDER_LIST_DETAIL>();
 
-            var orderListEntity = myContext.ORDER_LIST_DETAIL.Where(d => d.ORDER_NO != null && d.BUMP_ID != null);
-
-            if (!String.IsNullOrEmpty(postedEntity.ORDER_NO) && !String.IsNullOrEmpty(postedEntity.BUMP_TYPE) && !String.IsNullOrEmpty(postedEntity.MATERIAL))
+            // 校验主键
+            if (String.IsNullOrEmpty(postedEntity.ORDER_NO))
             {
-                orderListEntity = orderListEntity
-                    .Where(d => d.ORDER_NO.Equals(postedEntity.ORDER_NO) && d.BUMP_ID.Equals(postedEntity.BUMP_TYPE + "_" + postedEntity.MATERIAL));
+                return "";
             }
+            
+            var orderListEntity = myContext.ORDER_LIST_DETAIL
+                .Where(d => d.ORDER_NO.Equals(postedEntity.ORDER_NO) && d.BUMP_ID.Equals(postedEntity.BUMP_ID));
 
             if (orderListEntity.Count() == 0)
             {
