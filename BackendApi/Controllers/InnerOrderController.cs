@@ -39,9 +39,15 @@ namespace BackendApi.Controllers
                 {
                     ORDER_NO_T = ORDER_NO_AND_BUMP_IDS[0];
                     BUMP_ID_T = ORDER_NO_AND_BUMP_IDS[1];
-                    returnJson = JsonConvert.SerializeObject(myContext.ORDER_LIST_DETAIL
+                    var tempObj = JsonConvert.SerializeObject(myContext.ORDER_LIST_DETAIL
+                                    .Where(d => d.ORDER_NO == ORDER_NO_T)
+                                    .Where(d => d.BUMP_ID == BUMP_ID_T));
+                    if (tempObj != "[]")
+                    {
+                        returnJson = JsonConvert.SerializeObject(myContext.ORDER_LIST_DETAIL
                                     .Where(d => d.ORDER_NO == ORDER_NO_T)
                                     .Where(d => d.BUMP_ID == BUMP_ID_T).First());
+                    }
                 }
             }
             return returnJson;
@@ -64,9 +70,15 @@ namespace BackendApi.Controllers
                 {
                     ORDER_NO_T = ORDER_NO_AND_BUMP_IDS[0];
                     BUMP_ID_T = ORDER_NO_AND_BUMP_IDS[1];
-                    returnJson = JsonConvert.SerializeObject(myContext.INNER_ORDER_BASIC_SEAL_MST
+                    var tempObj = JsonConvert.SerializeObject(myContext.INNER_ORDER_BASIC_SEAL_MST
+                                    .Where(d => d.ORDER_NO == ORDER_NO_T)
+                                    .Where(d => d.BUMP_ID == BUMP_ID_T));
+                    if (tempObj != "[]")
+                    {
+                        returnJson = JsonConvert.SerializeObject(myContext.INNER_ORDER_BASIC_SEAL_MST
                                     .Where(d => d.ORDER_NO == ORDER_NO_T)
                                     .Where(d => d.BUMP_ID == BUMP_ID_T).First());
+                    }
                 }
             }
             return returnJson;
@@ -89,9 +101,15 @@ namespace BackendApi.Controllers
                 {
                     ORDER_NO_T = ORDER_NO_AND_BUMP_IDS[0];
                     BUMP_ID_T = ORDER_NO_AND_BUMP_IDS[1];
-                    returnJson = JsonConvert.SerializeObject(myContext.INNER_ORDER_OTHER_COMPONENT_MST
+                    var tempObj = JsonConvert.SerializeObject(myContext.INNER_ORDER_OTHER_COMPONENT_MST
+                                    .Where(d => d.ORDER_NO == ORDER_NO_T)
+                                    .Where(d => d.BUMP_ID == BUMP_ID_T));
+                    if (tempObj != "[]")
+                    {
+                        JsonConvert.SerializeObject(myContext.INNER_ORDER_OTHER_COMPONENT_MST
                                     .Where(d => d.ORDER_NO == ORDER_NO_T)
                                     .Where(d => d.BUMP_ID == BUMP_ID_T).First());
+                    }
                 }
             }
             return returnJson;
@@ -131,7 +149,6 @@ namespace BackendApi.Controllers
                 innerOrderBasicSealPostEntity.FLOW = orderListDetailPostEntity.FLOW;
                 innerOrderBasicSealPostEntity.LIFT = orderListDetailPostEntity.LIFT;
                 innerOrderBasicSealPostEntity.STATION = orderListDetailPostEntity.STATION;
-                innerOrderBasicSealPostEntity.ABD_SEAL_INFO = new string[] { "0", "1" };
 
                 innerOrderOtherComponentPostEntity.ORDER_NO = orderListDetailPostEntity.ORDER_NO;
                 innerOrderOtherComponentPostEntity.BUMP_ID = orderListDetailPostEntity.BUMP_ID;
@@ -173,6 +190,7 @@ namespace BackendApi.Controllers
                 innerOrderbBasicSealMstEntity.First().SEAL_COOLER_MODEL = innerOrderBasicSealPostEntity.SEAL_COOLER_MODEL;
                 innerOrderbBasicSealMstEntity.First().BEARING_BRAND = innerOrderBasicSealPostEntity.BEARING_BRAND;
                 innerOrderbBasicSealMstEntity.First().BEARING_OTHER_INFO = innerOrderBasicSealPostEntity.BEARING_OTHER_INFO;
+                innerOrderbBasicSealMstEntity.First().INSTALL_DIRECTION = innerOrderBasicSealPostEntity.INSTALL_DIRECTION;
 
                 innerOrderOtherComponentMstEntity.First().BASE_TYPE = innerOrderOtherComponentPostEntity.BASE_TYPE;
                 innerOrderOtherComponentMstEntity.First().BASE_SPEC = innerOrderOtherComponentPostEntity.BASE_SPEC;
@@ -216,6 +234,25 @@ namespace BackendApi.Controllers
                 myContext.SaveChanges();
                 return "";
             }
+        }
+
+        // GET api/innerOrder/modelLibrary/{BUMP_INFO}
+        [HttpGet("modelLibrary/{BUMP_TYPE}")]
+        [EnableCors("CorsPolicy")]
+        public ActionResult<string> GetModelLibrary(string BUMP_TYPE)
+        {
+            BUMP_TYPE = BUMP_TYPE.Replace("|SLASH|", "/");
+            String returnJson = String.Empty;
+            if (!String.IsNullOrEmpty(BUMP_TYPE))
+            {
+                var tempObj = JsonConvert.SerializeObject(myContext.OTHER_COMPONENT_MODEL_MST.Where(d => d.BUMP_TYPE == BUMP_TYPE));
+
+                if (tempObj != "[]")
+                {
+                    returnJson = JsonConvert.SerializeObject(myContext.OTHER_COMPONENT_MODEL_MST.Where(d => d.BUMP_TYPE == BUMP_TYPE).First());
+                }
+            }
+            return returnJson;
         }
     }
 }

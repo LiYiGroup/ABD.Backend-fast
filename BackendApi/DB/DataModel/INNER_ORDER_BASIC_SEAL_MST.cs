@@ -37,8 +37,9 @@ namespace BackendApi.DB.DataModel
         public string SEAL_COOLER_MODEL { get; set; }
         public string BEARING_BRAND { get; set; }
         public string BEARING_OTHER_INFO { get; set; }
+        public string INSTALL_DIRECTION { get; set; }
 
-        public string[] ABD_SEAL_INFO { get; set; }
+        public string ABD_SEAL_INFO { get; set; }
 
 
     }

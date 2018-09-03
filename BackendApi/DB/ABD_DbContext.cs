@@ -16,12 +16,19 @@ namespace BackendApi.DB
             builder.Entity<ORDER_LIST_DETAIL>().HasKey(c => new { c.ORDER_NO, c.BUMP_ID });
             builder.Entity<INNER_ORDER_BASIC_SEAL_MST>().HasKey(c => new { c.ORDER_NO, c.BUMP_ID });
             builder.Entity<INNER_ORDER_OTHER_COMPONENT_MST>().HasKey(c => new { c.ORDER_NO, c.BUMP_ID });
-
+            builder.Entity<OTHER_COMPONENT_MODEL_MST>().HasKey(c => new { c.BUMP_TYPE });
+            builder.Entity<ABD_DOUBLE_SEAL_MST>().HasKey(c => new { c.ID });
+            builder.Entity<ABD_INTEGRATE_SEAL_MST>().HasKey(c => new { c.ID });
+            builder.Entity<ABD_SINGLE_SEAL_MST>().HasKey(c => new { c.ID });
         }
 
         public virtual DbSet<ORDER_LIST_MST> ORDER_LIST_MST { get; set; }
         public virtual DbSet<ORDER_LIST_DETAIL> ORDER_LIST_DETAIL { get; set; }
         public virtual DbSet<INNER_ORDER_BASIC_SEAL_MST> INNER_ORDER_BASIC_SEAL_MST { get; set; }
         public virtual DbSet<INNER_ORDER_OTHER_COMPONENT_MST> INNER_ORDER_OTHER_COMPONENT_MST { get; set; }
+        public virtual DbSet<OTHER_COMPONENT_MODEL_MST> OTHER_COMPONENT_MODEL_MST { get; set; }
+        public virtual DbSet<ABD_DOUBLE_SEAL_MST> ABD_DOUBLE_SEAL_MST { get; set; }
+        public virtual DbSet<ABD_INTEGRATE_SEAL_MST> ABD_INTEGRATE_SEAL_MST { get; set; }
+        public virtual DbSet<ABD_SINGLE_SEAL_MST> ABD_SINGLE_SEAL_MST { get; set; }
     }
 }
