@@ -20,6 +20,10 @@ namespace BackendApi.DB
             builder.Entity<ABD_DOUBLE_SEAL_MST>().HasKey(c => new { c.ID });
             builder.Entity<ABD_INTEGRATE_SEAL_MST>().HasKey(c => new { c.ID });
             builder.Entity<ABD_SINGLE_SEAL_MST>().HasKey(c => new { c.ID });
+            builder.Entity<BOM_ITEM_BASE>().HasKey(c => new { c.BOM_ID, c.ITEM_NO });
+            builder.Entity<BOM_ITEM_STANDARD>().HasKey(c => new { c.BOM_ID, c.ITEM_NO });
+            builder.Entity<INNER_ORDER_BOM_ITEM_BASE>().HasKey(c => new { c.ORDER_NO, c.BUMP_ID, c.BOM_ID, c.ITEM_NO });
+            builder.Entity<INNER_ORDER_BOM_ITEM_STANDARD>().HasKey(c => new { c.ORDER_NO, c.BUMP_ID, c.BOM_ID, c.ITEM_NO });
         }
 
         public virtual DbSet<ORDER_LIST_MST> ORDER_LIST_MST { get; set; }
@@ -30,5 +34,9 @@ namespace BackendApi.DB
         public virtual DbSet<ABD_DOUBLE_SEAL_MST> ABD_DOUBLE_SEAL_MST { get; set; }
         public virtual DbSet<ABD_INTEGRATE_SEAL_MST> ABD_INTEGRATE_SEAL_MST { get; set; }
         public virtual DbSet<ABD_SINGLE_SEAL_MST> ABD_SINGLE_SEAL_MST { get; set; }
+        public virtual DbSet<BOM_ITEM_BASE> BOM_ITEM_BASE { get; set; }
+        public virtual DbSet<BOM_ITEM_STANDARD> BOM_ITEM_STANDARD { get; set; }
+        public virtual DbSet<INNER_ORDER_BOM_ITEM_BASE> INNER_ORDER_BOM_ITEM_BASE { get; set; }
+        public virtual DbSet<INNER_ORDER_BOM_ITEM_STANDARD> INNER_ORDER_BOM_ITEM_STANDARD { get; set; }
     }
 }

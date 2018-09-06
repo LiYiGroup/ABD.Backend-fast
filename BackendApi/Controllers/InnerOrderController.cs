@@ -1,14 +1,19 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using BackendApi.DB;
 using BackendApi.DB.DataModel;
+using BackendApi.DB.SearchModel;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Npgsql;
 
 namespace BackendApi.Controllers
 {
@@ -106,7 +111,7 @@ namespace BackendApi.Controllers
                                     .Where(d => d.BUMP_ID == BUMP_ID_T));
                     if (tempObj != "[]")
                     {
-                        JsonConvert.SerializeObject(myContext.INNER_ORDER_OTHER_COMPONENT_MST
+                        returnJson = JsonConvert.SerializeObject(myContext.INNER_ORDER_OTHER_COMPONENT_MST
                                     .Where(d => d.ORDER_NO == ORDER_NO_T)
                                     .Where(d => d.BUMP_ID == BUMP_ID_T).First());
                     }
@@ -125,6 +130,9 @@ namespace BackendApi.Controllers
             INNER_ORDER_BASIC_SEAL_MST innerOrderBasicSealPostEntity = postObj.GetValue("basicAndSealModel").ToObject<INNER_ORDER_BASIC_SEAL_MST>();
             INNER_ORDER_OTHER_COMPONENT_MST innerOrderOtherComponentPostEntity = postObj.GetValue("otherComponentModel").ToObject<INNER_ORDER_OTHER_COMPONENT_MST>();
 
+            IList innerOrderBOMItemStandard = postObj.GetValue("componentListTableData").ToList();
+            IList innerOrderBOMItemBase = postObj.GetValue("basicPartListTableData").ToList();
+
             // 校验主键
             if (String.IsNullOrEmpty(orderListDetailPostEntity.ORDER_NO) || String.IsNullOrEmpty(orderListDetailPostEntity.BUMP_ID))
             {
@@ -132,6 +140,27 @@ namespace BackendApi.Controllers
             }
 
             // FROM DB
+            // 登录BOM的GRID部分，先用SQL删除对应ID项目，之后批量插入
+            myContext.Database.ExecuteSqlCommand("DELETE FROM \"INNER_ORDER_BOM_ITEM_BASE\" WHERE \"ORDER_NO\" = @ORDER_NO AND \"BUMP_ID\" = @BUMP_ID", 
+                        new NpgsqlParameter("@ORDER_NO", orderListDetailPostEntity.ORDER_NO), new NpgsqlParameter("@BUMP_ID", orderListDetailPostEntity.BUMP_ID));
+            myContext.Database.ExecuteSqlCommand("DELETE FROM \"INNER_ORDER_BOM_ITEM_STANDARD\" WHERE \"ORDER_NO\" = @ORDER_NO AND \"BUMP_ID\" = @BUMP_ID",
+                        new NpgsqlParameter("@ORDER_NO", orderListDetailPostEntity.ORDER_NO), new NpgsqlParameter("@BUMP_ID", orderListDetailPostEntity.BUMP_ID));
+            foreach (JObject item in innerOrderBOMItemStandard)
+            {
+                INNER_ORDER_BOM_ITEM_STANDARD itemEntity = item.ToObject<INNER_ORDER_BOM_ITEM_STANDARD>();
+                itemEntity.ORDER_NO = orderListDetailPostEntity.ORDER_NO;
+                itemEntity.BUMP_ID = orderListDetailPostEntity.BUMP_ID;
+                myContext.INNER_ORDER_BOM_ITEM_STANDARD.AddAsync(itemEntity);
+            }
+            foreach (JObject item in innerOrderBOMItemBase)
+            {
+                INNER_ORDER_BOM_ITEM_BASE itemEntity = item.ToObject<INNER_ORDER_BOM_ITEM_BASE>();
+                itemEntity.ORDER_NO = orderListDetailPostEntity.ORDER_NO;
+                itemEntity.BUMP_ID = orderListDetailPostEntity.BUMP_ID;
+                myContext.INNER_ORDER_BOM_ITEM_BASE.AddAsync(itemEntity);
+            }
+            myContext.SaveChanges();
+
             var innerOrderbBasicSealMstEntity = myContext.INNER_ORDER_BASIC_SEAL_MST
                 .Where(d => d.ORDER_NO.Equals(orderListDetailPostEntity.ORDER_NO) && d.BUMP_ID.Equals(orderListDetailPostEntity.BUMP_ID));
 
@@ -152,6 +181,8 @@ namespace BackendApi.Controllers
 
                 innerOrderOtherComponentPostEntity.ORDER_NO = orderListDetailPostEntity.ORDER_NO;
                 innerOrderOtherComponentPostEntity.BUMP_ID = orderListDetailPostEntity.BUMP_ID;
+
+                // TODO
 
                 myContext.INNER_ORDER_OTHER_COMPONENT_MST.Add(innerOrderOtherComponentPostEntity);
                 myContext.INNER_ORDER_BASIC_SEAL_MST.Add(innerOrderBasicSealPostEntity);
@@ -250,6 +281,54 @@ namespace BackendApi.Controllers
                 if (tempObj != "[]")
                 {
                     returnJson = JsonConvert.SerializeObject(myContext.OTHER_COMPONENT_MODEL_MST.Where(d => d.BUMP_TYPE == BUMP_TYPE).First());
+                }
+            }
+            return returnJson;
+        }
+
+        // GET api/innerOrder/BOMGridData/
+        [HttpGet("BOMGridData")]
+        [EnableCors("CorsPolicy")]
+        public ActionResult<string> Get()
+        {
+            InnerOrderGridObject gridObj = new InnerOrderGridObject();
+            gridObj.innerOrderGridBomItemBase = myContext.BOM_ITEM_BASE.ToList();
+            gridObj.innerOrderGridBomItemStandard = myContext.BOM_ITEM_STANDARD.ToList();
+            String returnJson = JsonConvert.SerializeObject(gridObj);
+            // 清空所有项目
+            myContext.RemoveRange(myContext.Set<BOM_ITEM_BASE>());
+            myContext.RemoveRange(myContext.Set<BOM_ITEM_STANDARD>());
+            myContext.SaveChanges();
+            return returnJson;
+        }
+
+        // GET api/innerOrder/BOMGridData/{BUMP_INFO}
+        [HttpGet("BOMGridData/{BUMP_INFO}")]
+        [EnableCors("CorsPolicy")]
+        public ActionResult<string> GetBOMDataForDisplay(string BUMP_INFO)
+        {
+
+            String returnJson = String.Empty;
+            if (!String.IsNullOrEmpty(BUMP_INFO))
+            {
+                BUMP_INFO = BUMP_INFO.Replace("|SLASH|", "/");
+                string[] ORDER_NO_AND_BUMP_IDS = BUMP_INFO.Split("|DASH|");
+                string BUMP_ID_T = String.Empty;
+                string ORDER_NO_T = String.Empty;
+                InnerOrderGridObjectForDisplay gridObj = new InnerOrderGridObjectForDisplay();
+                if (ORDER_NO_AND_BUMP_IDS.Length > 1)
+                {
+                    ORDER_NO_T = ORDER_NO_AND_BUMP_IDS[0];
+                    BUMP_ID_T = ORDER_NO_AND_BUMP_IDS[1];
+
+                    gridObj.innerOrderGridBomItemBase = myContext.INNER_ORDER_BOM_ITEM_BASE
+                                    .Where(d => d.ORDER_NO == ORDER_NO_T)
+                                    .Where(d => d.BUMP_ID == BUMP_ID_T).ToList();
+
+                    gridObj.innerOrderGridBomItemStandard = myContext.INNER_ORDER_BOM_ITEM_STANDARD
+                                    .Where(d => d.ORDER_NO == ORDER_NO_T)
+                                    .Where(d => d.BUMP_ID == BUMP_ID_T).ToList();
+                    returnJson = JsonConvert.SerializeObject(gridObj);
                 }
             }
             return returnJson;
