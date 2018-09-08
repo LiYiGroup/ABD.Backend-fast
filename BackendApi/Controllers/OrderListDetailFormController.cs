@@ -28,7 +28,11 @@ namespace BackendApi.Controllers
         [EnableCors("CorsPolicy")]
         public ActionResult<string> Get(string ORDER_NO)
         {
-            var orderListDetailEntity = myContext.ORDER_LIST_MST.Where(d => d.ORDER_NO == ORDER_NO).First();
+            if (String.IsNullOrEmpty(ORDER_NO))
+            {
+                return "";
+            }
+            var orderListDetailEntity = myContext.ORDER_LIST_MST.Where(d => d.ORDER_NO == ORDER_NO.Replace("|SLASH|", "/")).First();
             if (orderListDetailEntity.Equals(null))
             {
                 return "";

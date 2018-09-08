@@ -38,7 +38,11 @@ namespace BackendApi.Controllers
         [EnableCors("CorsPolicy")]
         public ActionResult<string> Get(string ORDER_NO)
         {
-            var orderListDetailEntity = myContext.ORDER_LIST_DETAIL.Where(d => d.ORDER_NO == ORDER_NO);
+            if (String.IsNullOrEmpty(ORDER_NO))
+            {
+                return "";
+            }
+            var orderListDetailEntity = myContext.ORDER_LIST_DETAIL.Where(d => d.ORDER_NO == ORDER_NO.Replace("|SLASH|", "/"));
             if (orderListDetailEntity.Equals(null))
             {
                 return "";
@@ -58,7 +62,7 @@ namespace BackendApi.Controllers
             string data = "Delete success";
             if (!String.IsNullOrEmpty(BUMP_INFO))
             {
-                string[] ORDER_NO_AND_BUMP_IDS = BUMP_INFO.Split("|DASH|");
+                string[] ORDER_NO_AND_BUMP_IDS = BUMP_INFO.Replace("|SLASH|", "/").Split("|DASH|");
                 string[] BUMP_ID_LIST = {};
                 string ORDER_NO_T = String.Empty;
 
