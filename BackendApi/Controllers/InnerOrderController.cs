@@ -130,8 +130,18 @@ namespace BackendApi.Controllers
             INNER_ORDER_BASIC_SEAL_MST innerOrderBasicSealPostEntity = postObj.GetValue("basicAndSealModel").ToObject<INNER_ORDER_BASIC_SEAL_MST>();
             INNER_ORDER_OTHER_COMPONENT_MST innerOrderOtherComponentPostEntity = postObj.GetValue("otherComponentModel").ToObject<INNER_ORDER_OTHER_COMPONENT_MST>();
 
-            IList innerOrderBOMItemStandard = postObj.GetValue("componentListTableData").ToList();
-            IList innerOrderBOMItemBase = postObj.GetValue("basicPartListTableData").ToList();
+            IList innerOrderBOMItemStandard = new ArrayList();
+            IList innerOrderBOMItemBase = new ArrayList();
+
+            if (postObj.GetValue("componentListTableData") != null)
+            {
+                innerOrderBOMItemStandard = postObj.GetValue("componentListTableData").ToList();
+            }
+
+            if (postObj.GetValue("basicPartListTableData") != null)
+            {
+                innerOrderBOMItemBase = postObj.GetValue("basicPartListTableData").ToList();
+            }
 
             // 校验主键
             if (String.IsNullOrEmpty(orderListDetailPostEntity.ORDER_NO) || String.IsNullOrEmpty(orderListDetailPostEntity.BUMP_ID))

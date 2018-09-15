@@ -108,7 +108,7 @@ namespace BackendApi.Controllers
             string data = "Delete success";
             if (!String.IsNullOrEmpty(ORDER_NO))
             {
-                String[] ORDER_NO_LIST = ORDER_NO.Split(",");
+                String[] ORDER_NO_LIST = ORDER_NO.Replace("|SLASH|", "/").Split(",");
 
                 foreach (string ORDER_ITEM in ORDER_NO_LIST)
                 {
