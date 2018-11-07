@@ -25,6 +25,7 @@ namespace BackendApi.DB
             builder.Entity<INNER_ORDER_BOM_ITEM_BASE>().HasKey(c => new { c.ORDER_NO, c.BUMP_ID, c.BOM_ID, c.ITEM_NO });
             builder.Entity<INNER_ORDER_BOM_ITEM_STANDARD>().HasKey(c => new { c.ORDER_NO, c.BUMP_ID, c.BOM_ID, c.ITEM_NO });
             builder.Entity<ORDER_QUERY_MST>().HasKey(c => new { c.ORDER_NO });
+            builder.Entity<M_DICT>().HasKey(c => new { c.DICT_ID });
         }
 
         public virtual DbSet<ORDER_LIST_MST> ORDER_LIST_MST { get; set; }
@@ -40,5 +41,6 @@ namespace BackendApi.DB
         public virtual DbSet<INNER_ORDER_BOM_ITEM_BASE> INNER_ORDER_BOM_ITEM_BASE { get; set; }
         public virtual DbSet<INNER_ORDER_BOM_ITEM_STANDARD> INNER_ORDER_BOM_ITEM_STANDARD { get; set; }
         public virtual DbSet<ORDER_QUERY_MST> ORDER_QUERY_MST { get; set; }
+        public virtual DbSet<M_DICT> M_DICT { get; set; }
     }
 }
