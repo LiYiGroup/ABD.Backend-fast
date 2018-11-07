@@ -7,12 +7,6 @@ namespace BackendApi.DB.DataModel
 {
     public class ORDER_QUERY_MST
     {
-        public int NO { get; set; }
-        public string SALES_PERSON { get; set; }
-        public string ORDER_UNIT { get; set; }
-        public string PROJECT_NM { get; set; }
-        public DateTime DEPARTURE_DATE { get; set; }
-        public DateTime DELIVERY_DATE { get; set; }
         public string ORDER_NO { get; set; }
         public int QTY { get; set; }
         public Double TOTAL_AMT { get; set; }

@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BackendApi.DB.SearchModel
+namespace BackendApi.DB.DataModel
 {
-    public class OrderQuerySearchObject
+    public class ORDER_QUERY_RESULT
     {
+        public string SALES_PERSON { get; set; }
+        public string ORDER_UNIT { get; set; }
+        public string PROJECT_NM { get; set; }
+        public DateTime DEPARTURE_DATE { get; set; }
+        public DateTime DELIVERY_DATE { get; set; }
         public string ORDER_NO { get; set; }
         public int QTY { get; set; }
         public Double TOTAL_AMT { get; set; }
@@ -17,4 +22,3 @@ namespace BackendApi.DB.SearchModel
         public Double REMAIN_AMT { get; set; }
     }
 }
-

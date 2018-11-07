@@ -5,8 +5,15 @@ using System.Threading.Tasks;
 
 namespace BackendApi.DB.SearchModel
 {
-    public class OrderQuerySearchObject
+    public class OrderQueryResultSearchObject
     {
+        public string SALES_PERSON { get; set; }
+        public string ORDER_UNIT { get; set; }
+        public string PROJECT_NM { get; set; }
+        public DateTime DEPARTURE_DATE_ST { get; set; }
+        public DateTime DEPARTURE_DATE_ED { get; set; }
+        public DateTime DELIVERY_DATE_ST { get; set; }
+        public DateTime DELIVERY_DATE_ED { get; set; }
         public string ORDER_NO { get; set; }
         public int QTY { get; set; }
         public Double TOTAL_AMT { get; set; }
