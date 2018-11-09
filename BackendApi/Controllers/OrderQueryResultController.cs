@@ -60,7 +60,7 @@ namespace BackendApi.Controllers
         [HttpPost]
         [EnableCors("CorsPolicy")]
         // JObject here is very very important...
-        public ActionResult<string> Post1([FromBody]JObject searchCondObj)
+        public ActionResult<string> Post([FromBody]JObject searchCondObj)
         {
 
             OrderQueryResultSearchObject searchObj = searchCondObj.ToObject<OrderQueryResultSearchObject>();

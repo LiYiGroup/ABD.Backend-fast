@@ -198,15 +198,51 @@ namespace BackendApi.Controllers
                                 else
                                 {
                                     orderListDetailEntity.First().BUMP_NM = excelOrderListDetailEntity.BUMP_NM;
-                                    orderListDetailEntity.First().STATION = excelOrderListDetailEntity.STATION;
                                     orderListDetailEntity.First().BUMP_TYPE = excelOrderListDetailEntity.BUMP_TYPE;
                                     orderListDetailEntity.First().NUMBER = excelOrderListDetailEntity.NUMBER;
+
+                                    orderListDetailEntity.First().UNIT = excelOrderListDetailEntity.UNIT;
+                                    orderListDetailEntity.First().PRICE = excelOrderListDetailEntity.PRICE;
+                                    orderListDetailEntity.First().AMOUNT = excelOrderListDetailEntity.AMOUNT;
+                                    orderListDetailEntity.First().BUMP_SERIAL_NO = excelOrderListDetailEntity.BUMP_SERIAL_NO;
                                     orderListDetailEntity.First().FLOW = excelOrderListDetailEntity.FLOW;
                                     orderListDetailEntity.First().LIFT = excelOrderListDetailEntity.LIFT;
-                                    orderListDetailEntity.First().MATERIAL = excelOrderListDetailEntity.MATERIAL;
-                                    orderListDetailEntity.First().SEAL = excelOrderListDetailEntity.SEAL;
-                                    orderListDetailEntity.First().BUMP_SERIAL_NO = excelOrderListDetailEntity.BUMP_SERIAL_NO;
-                                    orderListDetailEntity.First().REMARK = excelOrderListDetailEntity.REMARK;
+
+                                    orderListDetailEntity.First().MATERIAL_BUMP = excelOrderListDetailEntity.MATERIAL_BUMP;
+                                    orderListDetailEntity.First().MATERIAL_FAN = excelOrderListDetailEntity.MATERIAL_FAN;
+                                    orderListDetailEntity.First().MATERIAL_ROLLER = excelOrderListDetailEntity.MATERIAL_ROLLER;
+                                    orderListDetailEntity.First().MOTOR_BRAND = excelOrderListDetailEntity.MOTOR_BRAND;
+                                    orderListDetailEntity.First().MOTOR_DEMAND = excelOrderListDetailEntity.MOTOR_DEMAND;
+
+                                    orderListDetailEntity.First().SEAL_FORM = excelOrderListDetailEntity.SEAL_FORM;
+                                    orderListDetailEntity.First().SEAL_BRAND = excelOrderListDetailEntity.SEAL_BRAND;
+                                    orderListDetailEntity.First().ROLLER_BRAND = excelOrderListDetailEntity.ROLLER_BRAND;
+                                    orderListDetailEntity.First().COUPLING = excelOrderListDetailEntity.COUPLING;
+                                    orderListDetailEntity.First().SEAL_COOLER = excelOrderListDetailEntity.SEAL_COOLER;
+
+                                    orderListDetailEntity.First().CAVITATION_ALLOWANCE = excelOrderListDetailEntity.CAVITATION_ALLOWANCE;
+                                    orderListDetailEntity.First().ACTUAL_BUMP_SPEED = excelOrderListDetailEntity.ACTUAL_BUMP_SPEED;
+                                    orderListDetailEntity.First().STATION = excelOrderListDetailEntity.STATION;
+                                    orderListDetailEntity.First().TEMPERATURE = excelOrderListDetailEntity.TEMPERATURE;
+                                    orderListDetailEntity.First().DENSITY = excelOrderListDetailEntity.DENSITY;
+
+                                    orderListDetailEntity.First().IN_PRESSURE = excelOrderListDetailEntity.IN_PRESSURE;
+                                    orderListDetailEntity.First().MEDIUM = excelOrderListDetailEntity.MEDIUM;
+                                    orderListDetailEntity.First().VISCOSITY = excelOrderListDetailEntity.VISCOSITY;
+                                    orderListDetailEntity.First().PARTICULATES = excelOrderListDetailEntity.PARTICULATES;
+                                    orderListDetailEntity.First().WORKING_PRESSURE = excelOrderListDetailEntity.WORKING_PRESSURE;
+
+                                    orderListDetailEntity.First().FLANGES_STANDARD = excelOrderListDetailEntity.FLANGES_STANDARD;
+                                    orderListDetailEntity.First().FLANGES_LEVEL = excelOrderListDetailEntity.FLANGES_LEVEL;
+                                    orderListDetailEntity.First().BASE = excelOrderListDetailEntity.BASE;
+                                    orderListDetailEntity.First().COUPLING_HOOD = excelOrderListDetailEntity.COUPLING_HOOD;
+                                    orderListDetailEntity.First().ANCHOR_BOLT = excelOrderListDetailEntity.ANCHOR_BOLT;
+
+                                    orderListDetailEntity.First().PAINT = excelOrderListDetailEntity.PAINT;
+                                    orderListDetailEntity.First().SURFACE_TREATMENT = excelOrderListDetailEntity.SURFACE_TREATMENT;
+                                    orderListDetailEntity.First().PACKAGE = excelOrderListDetailEntity.PACKAGE;
+                                    orderListDetailEntity.First().TRANSPORT = excelOrderListDetailEntity.TRANSPORT;
+
                                     myContext.SaveChanges();
                                 }
                             }

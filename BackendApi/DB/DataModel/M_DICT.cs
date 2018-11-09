@@ -10,5 +10,6 @@ namespace BackendApi.DB.DataModel
         public string DICT_ID { get; set; }
         public string DICT_NAME { get; set; }
         public string TYPE { get; set; }
+        public string TYPE_NAME { get; set; }
     }
 }

@@ -76,6 +76,16 @@ namespace BackendApi.Controllers
                 orderListEntity.First().DELIVERY_DATE = postedEntity.DELIVERY_DATE.ToLocalTime();
                 orderListEntity.First().REMARK = postedEntity.REMARK;
                 orderListEntity.First().APPLICATION_ENGINEER = postedEntity.APPLICATION_ENGINEER;
+                orderListEntity.First().DEBUG = postedEntity.DEBUG;
+                orderListEntity.First().TOTAL_QTY = postedEntity.TOTAL_QTY;
+                orderListEntity.First().TEX_RATE = postedEntity.TEX_RATE;
+                orderListEntity.First().GUARANTEE_DATE = postedEntity.GUARANTEE_DATE;
+                orderListEntity.First().TOTAL_AMT = postedEntity.TOTAL_AMT;
+                orderListEntity.First().PAYMENT = postedEntity.PAYMENT;
+                orderListEntity.First().TARGET_PRICE = postedEntity.TARGET_PRICE;
+                orderListEntity.First().DISCOUNT = postedEntity.DISCOUNT;
+                orderListEntity.First().CHANGE_HIS1 = postedEntity.CHANGE_HIS1;
+                orderListEntity.First().CHANGE_HIS2 = postedEntity.CHANGE_HIS2;
                 myContext.SaveChanges();
                 return "";
             }

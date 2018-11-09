@@ -17,5 +17,15 @@ namespace BackendApi.DB.DataModel
         public DateTime DELIVERY_DATE { get; set; }
         public string REMARK { get; set; }
         public string APPLICATION_ENGINEER { get; set; }
+        public string DEBUG { get; set; }
+        public int TOTAL_QTY { get; set; }
+        public string TEX_RATE { get; set; }
+        public DateTime GUARANTEE_DATE { get; set; }
+        public double TOTAL_AMT { get; set; }
+        public string PAYMENT { get; set; }
+        public double TARGET_PRICE { get; set; }
+        public double DISCOUNT { get; set; }
+        public string CHANGE_HIS1 { get; set; }
+        public string CHANGE_HIS2 { get; set; }
     }
 }
