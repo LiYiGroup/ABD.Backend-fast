@@ -54,6 +54,8 @@ namespace BackendApi.DB.DataModel
         public string SURFACE_TREATMENT { get; set; }
         public string PACKAGE { get; set; }
         public string TRANSPORT { get; set; }
+
+        public string SEAL_BRAND_MANUAL { get; set; }
     }
 
 
@@ -124,5 +126,8 @@ namespace BackendApi.DB.DataModel
         public string SURFACE_TREATMENT_NAME { get; set; }
         public string PACKAGE_NAME { get; set; }
         public string TRANSPORT_NAME { get; set; }
+
+        public string SEAL_BRAND_MANUAL { get; set; }
+        public string SEAL_BRAND_SHOW { get; set; }
     }
 }

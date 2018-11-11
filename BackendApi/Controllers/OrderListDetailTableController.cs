@@ -156,6 +156,9 @@ namespace BackendApi.Controllers
                                             SURFACE_TREATMENT_NAME = n2.DICT_NAME,
                                             PACKAGE_NAME = o2.DICT_NAME,
                                             TRANSPORT_NAME = p2.DICT_NAME,
+
+                                            SEAL_BRAND_MANUAL = String.IsNullOrEmpty(a.SEAL_BRAND_MANUAL) ? "" : a.SEAL_BRAND_MANUAL,
+                                            SEAL_BRAND_SHOW = d2.DICT_NAME + (String.IsNullOrEmpty(a.SEAL_BRAND_MANUAL) ? "" :"-" + a.SEAL_BRAND_MANUAL) ,   //手动添加显示内容，否则显示数据字典名称
                                         };
 
             return JsonConvert.SerializeObject(orderListDetailEntity.ToList());
@@ -299,6 +302,9 @@ namespace BackendApi.Controllers
                                             SURFACE_TREATMENT_NAME = n2.DICT_NAME,
                                             PACKAGE_NAME = o2.DICT_NAME,
                                             TRANSPORT_NAME = p2.DICT_NAME,
+
+                                            SEAL_BRAND_MANUAL = String.IsNullOrEmpty(a.SEAL_BRAND_MANUAL) ? "" : a.SEAL_BRAND_MANUAL,
+                                            SEAL_BRAND_SHOW = d2.DICT_NAME + (String.IsNullOrEmpty(a.SEAL_BRAND_MANUAL) ? "" : "-" + a.SEAL_BRAND_MANUAL),   //手动添加显示内容，否则显示数据字典名称
                                         };
             if (orderListDetailEntity.Equals(null))
             {
@@ -439,7 +445,7 @@ namespace BackendApi.Controllers
                 postedEntity1.SURFACE_TREATMENT = postedEntity.SURFACE_TREATMENT;
                 postedEntity1.PACKAGE = postedEntity.PACKAGE;
                 postedEntity1.TRANSPORT = postedEntity.TRANSPORT;
-
+                postedEntity1.SEAL_BRAND_MANUAL = String.IsNullOrEmpty(postedEntity.SEAL_BRAND_MANUAL) ? "" : postedEntity.SEAL_BRAND_MANUAL;
                 myContext.ORDER_LIST_DETAIL.Add(postedEntity1);
                 myContext.SaveChanges();
                 return "";
@@ -492,6 +498,7 @@ namespace BackendApi.Controllers
                 orderListEntity.First().PACKAGE = postedEntity.PACKAGE;
                 orderListEntity.First().TRANSPORT = postedEntity.TRANSPORT;
 
+                orderListEntity.First().SEAL_BRAND_MANUAL = String.IsNullOrEmpty(postedEntity.SEAL_BRAND_MANUAL) ? "" : postedEntity.SEAL_BRAND_MANUAL;
                 myContext.SaveChanges();
                 return "";
             }
