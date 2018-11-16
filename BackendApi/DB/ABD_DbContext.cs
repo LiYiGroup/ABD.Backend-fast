@@ -29,6 +29,7 @@ namespace BackendApi.DB
             builder.Entity<M_DICT>().HasKey(c => new { c.DICT_ID });
             builder.Entity<ORDER_LIST_ATTACHMENT>().HasKey(c => new { c.ORDER_NO });
             builder.Entity<ORDER_LIST_ATTACHMENT_RST>().HasKey(c => new { c.ORDER_NO });
+            builder.Entity<ACCESSORIES_TEMPLATE>().HasKey(c => new { c.SEQ_ID });
         }
 
         public virtual DbSet<ORDER_LIST_MST> ORDER_LIST_MST { get; set; }
@@ -48,5 +49,6 @@ namespace BackendApi.DB
         public virtual DbSet<M_DICT> M_DICT { get; set; }
         public virtual DbSet<ORDER_LIST_ATTACHMENT> ORDER_LIST_ATTACHMENT { get; set; }
         public virtual DbSet<ORDER_LIST_ATTACHMENT_RST> ORDER_LIST_ATTACHMENT_RST { get; set; }
+        public virtual DbSet<ACCESSORIES_TEMPLATE> ACCESSORIES_TEMPLATE { get; set; }
     }
 }

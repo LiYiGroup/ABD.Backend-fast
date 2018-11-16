@@ -32,17 +32,17 @@ namespace BackendApi.DB.DataModel
         public string COUPLING { get; set; }
         public string SEAL_COOLER { get; set; }
 
-        public string CAVITATION_ALLOWANCE { get; set; }
-        public string ACTUAL_BUMP_SPEED { get; set; }
+        public int CAVITATION_ALLOWANCE { get; set; }
+        public int ACTUAL_BUMP_SPEED { get; set; }
         public string STATION { get; set; }
-        public string TEMPERATURE { get; set; }
+        public int TEMPERATURE { get; set; }
         public string DENSITY { get; set; }
 
-        public string IN_PRESSURE { get; set; }
+        public int IN_PRESSURE { get; set; }
         public string MEDIUM { get; set; }
-        public string VISCOSITY { get; set; }
+        public int VISCOSITY { get; set; }
         public string PARTICULATES { get; set; }
-        public string WORKING_PRESSURE { get; set; }
+        public int WORKING_PRESSURE { get; set; }
 
         public string FLANGES_STANDARD { get; set; }
         public string FLANGES_LEVEL { get; set; }
@@ -86,17 +86,17 @@ namespace BackendApi.DB.DataModel
         public string COUPLING { get; set; }
         public string SEAL_COOLER { get; set; }
 
-        public string CAVITATION_ALLOWANCE { get; set; }
-        public string ACTUAL_BUMP_SPEED { get; set; }
+        public int CAVITATION_ALLOWANCE { get; set; }
+        public int ACTUAL_BUMP_SPEED { get; set; }
         public string STATION { get; set; }
-        public string TEMPERATURE { get; set; }
+        public int TEMPERATURE { get; set; }
         public string DENSITY { get; set; }
 
-        public string IN_PRESSURE { get; set; }
+        public int IN_PRESSURE { get; set; }
         public string MEDIUM { get; set; }
-        public string VISCOSITY { get; set; }
+        public int VISCOSITY { get; set; }
         public string PARTICULATES { get; set; }
-        public string WORKING_PRESSURE { get; set; }
+        public int WORKING_PRESSURE { get; set; }
 
         public string FLANGES_STANDARD { get; set; }
         public string FLANGES_LEVEL { get; set; }
