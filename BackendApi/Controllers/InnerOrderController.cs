@@ -44,7 +44,7 @@ namespace BackendApi.Controllers
                 {
                     ORDER_NO_T = ORDER_NO_AND_BUMP_IDS[0];
                     BUMP_ID_T = ORDER_NO_AND_BUMP_IDS[1];
-                    var tempObj = JsonConvert.SerializeObject(myContext.ORDER_LIST_DETAIL
+                    var tempObj = JsonConvert.SerializeObject(myContext. ORDER_LIST_DETAIL
                                     .Where(d => d.ORDER_NO == ORDER_NO_T)
                                     .Where(d => d.BUMP_ID == BUMP_ID_T));
                     if (tempObj != "[]")
@@ -188,6 +188,24 @@ namespace BackendApi.Controllers
                 innerOrderBasicSealPostEntity.FLOW = orderListDetailPostEntity.FLOW;
                 innerOrderBasicSealPostEntity.LIFT = orderListDetailPostEntity.LIFT;
                 innerOrderBasicSealPostEntity.STATION = orderListDetailPostEntity.STATION;
+                innerOrderBasicSealPostEntity.MATERIAL_BUMP = orderListDetailPostEntity.MATERIAL_BUMP;
+                innerOrderBasicSealPostEntity.MATERIAL_FAN = orderListDetailPostEntity.MATERIAL_FAN;
+                innerOrderBasicSealPostEntity.MATERIAL_ROLLER = orderListDetailPostEntity.MATERIAL_ROLLER;
+                innerOrderBasicSealPostEntity.SEAL_FORM = orderListDetailPostEntity.SEAL_FORM;
+                innerOrderBasicSealPostEntity.SEAL_BRAND = orderListDetailPostEntity.SEAL_BRAND;
+                innerOrderBasicSealPostEntity.SEAL_BRAND_MANUAL = orderListDetailPostEntity.SEAL_BRAND_MANUAL;
+                innerOrderBasicSealPostEntity.NPSH = orderListDetailPostEntity.CAVITATION_ALLOWANCE;
+                innerOrderBasicSealPostEntity.BUMP_SPEED = orderListDetailPostEntity.ACTUAL_BUMP_SPEED;
+                innerOrderBasicSealPostEntity.TEMPERATURE= orderListDetailPostEntity.TEMPERATURE;
+                innerOrderBasicSealPostEntity.DENSITY = orderListDetailPostEntity.DENSITY;
+                innerOrderBasicSealPostEntity.INLET_PRESSURE = orderListDetailPostEntity.IN_PRESSURE;
+                innerOrderBasicSealPostEntity.MEDIA = orderListDetailPostEntity.MEDIUM;
+                innerOrderBasicSealPostEntity.VISCOSITY= orderListDetailPostEntity.VISCOSITY;
+                innerOrderBasicSealPostEntity.PARTICULATES = orderListDetailPostEntity.PARTICULATES;
+                innerOrderBasicSealPostEntity.WORKING_PRESSURE = orderListDetailPostEntity.WORKING_PRESSURE;
+                innerOrderBasicSealPostEntity.FLANGE_STANDARD= orderListDetailPostEntity.FLANGES_STANDARD;
+                innerOrderBasicSealPostEntity.FLANGE_LEVEL = orderListDetailPostEntity.FLANGES_LEVEL;
+
 
                 innerOrderOtherComponentPostEntity.ORDER_NO = orderListDetailPostEntity.ORDER_NO;
                 innerOrderOtherComponentPostEntity.BUMP_ID = orderListDetailPostEntity.BUMP_ID;
@@ -208,18 +226,38 @@ namespace BackendApi.Controllers
                 innerOrderbBasicSealMstEntity.First().FLOW = orderListDetailPostEntity.FLOW;
                 innerOrderbBasicSealMstEntity.First().LIFT = orderListDetailPostEntity.LIFT;
                 innerOrderbBasicSealMstEntity.First().STATION = orderListDetailPostEntity.STATION;
+                innerOrderbBasicSealMstEntity.First().MATERIAL_BUMP = orderListDetailPostEntity.MATERIAL_BUMP;
+                innerOrderbBasicSealMstEntity.First().MATERIAL_FAN = orderListDetailPostEntity.MATERIAL_FAN;
+                innerOrderbBasicSealMstEntity.First().MATERIAL_ROLLER = orderListDetailPostEntity.MATERIAL_ROLLER;
+                innerOrderbBasicSealMstEntity.First().SEAL_FORM = orderListDetailPostEntity.SEAL_FORM;
+                innerOrderbBasicSealMstEntity.First().SEAL_BRAND = orderListDetailPostEntity.SEAL_BRAND;
+                innerOrderbBasicSealMstEntity.First().SEAL_BRAND_MANUAL = orderListDetailPostEntity.SEAL_BRAND_MANUAL;
+                innerOrderbBasicSealMstEntity.First().NPSH = orderListDetailPostEntity.CAVITATION_ALLOWANCE;
+                innerOrderbBasicSealMstEntity.First().BUMP_SPEED = orderListDetailPostEntity.ACTUAL_BUMP_SPEED;
+                innerOrderbBasicSealMstEntity.First().TEMPERATURE = orderListDetailPostEntity.TEMPERATURE;
+                innerOrderbBasicSealMstEntity.First().DENSITY = orderListDetailPostEntity.DENSITY;
+                innerOrderbBasicSealMstEntity.First().INLET_PRESSURE = orderListDetailPostEntity.IN_PRESSURE;
+                innerOrderbBasicSealMstEntity.First().MEDIA = orderListDetailPostEntity.MEDIUM;
+                innerOrderbBasicSealMstEntity.First().VISCOSITY = orderListDetailPostEntity.VISCOSITY;
+                innerOrderbBasicSealMstEntity.First().PARTICULATES = orderListDetailPostEntity.PARTICULATES;
+                innerOrderbBasicSealMstEntity.First().WORKING_PRESSURE = orderListDetailPostEntity.WORKING_PRESSURE;
+                innerOrderbBasicSealMstEntity.First().FLANGE_STANDARD = orderListDetailPostEntity.FLANGES_STANDARD;
+                innerOrderbBasicSealMstEntity.First().FLANGE_LEVEL = orderListDetailPostEntity.FLANGES_LEVEL;
+
+                innerOrderOtherComponentMstEntity.First().ELECTRIC_MOTER_TYPE = orderListDetailPostEntity.MOTOR_BRAND;
+                innerOrderOtherComponentMstEntity.First().COUPLING_TYPE = orderListDetailPostEntity.COUPLING;
+                innerOrderOtherComponentMstEntity.First().BASE_TYPE = orderListDetailPostEntity.BASE;
+                innerOrderOtherComponentMstEntity.First().COUPLING_HOOD_TYPE = orderListDetailPostEntity.COUPLING_HOOD;
+                innerOrderOtherComponentMstEntity.First().ANCHOR_BOLT_TYPE = orderListDetailPostEntity.ANCHOR_BOLT;
+                innerOrderOtherComponentMstEntity.First().COLOR_TYPE = orderListDetailPostEntity.PAINT;
+                innerOrderOtherComponentMstEntity.First().SURFACE_TREAT_TYPE = orderListDetailPostEntity.SURFACE_TREATMENT;
+                innerOrderOtherComponentMstEntity.First().PACKAGING_TYPE = orderListDetailPostEntity.PACKAGE;
+                innerOrderOtherComponentMstEntity.First().TRANSPORT_TYPE = orderListDetailPostEntity.TRANSPORT;
+
                 // 其他项目
-                innerOrderbBasicSealMstEntity.First().WORKING_PRESSURE = innerOrderBasicSealPostEntity.WORKING_PRESSURE;
+
                 innerOrderbBasicSealMstEntity.First().TEST_PRESSURE = innerOrderBasicSealPostEntity.TEST_PRESSURE;
                 innerOrderbBasicSealMstEntity.First().SUPPRESS_PRESSURE = innerOrderBasicSealPostEntity.SUPPRESS_PRESSURE;
-                innerOrderbBasicSealMstEntity.First().FLANGE_STANDARD = innerOrderBasicSealPostEntity.FLANGE_STANDARD;
-                innerOrderbBasicSealMstEntity.First().NPSH = innerOrderBasicSealPostEntity.NPSH;
-                innerOrderbBasicSealMstEntity.First().BUMP_SPEED = innerOrderBasicSealPostEntity.BUMP_SPEED;
-                innerOrderbBasicSealMstEntity.First().MEDIA = innerOrderBasicSealPostEntity.MEDIA;
-                innerOrderbBasicSealMstEntity.First().TEMPERATURE = innerOrderBasicSealPostEntity.TEMPERATURE;
-                innerOrderbBasicSealMstEntity.First().VISCOSITY = innerOrderBasicSealPostEntity.VISCOSITY;
-                innerOrderbBasicSealMstEntity.First().INLET_PRESSURE = innerOrderBasicSealPostEntity.INLET_PRESSURE;
-                innerOrderbBasicSealMstEntity.First().PARTICULATES = innerOrderBasicSealPostEntity.PARTICULATES;
                 innerOrderbBasicSealMstEntity.First().SEAL_TYPE = innerOrderBasicSealPostEntity.SEAL_TYPE;
                 innerOrderbBasicSealMstEntity.First().SEAL_MODEL = innerOrderBasicSealPostEntity.SEAL_MODEL;
                 innerOrderbBasicSealMstEntity.First().SEAL_MATERIAL = innerOrderBasicSealPostEntity.SEAL_MATERIAL;
@@ -232,6 +270,14 @@ namespace BackendApi.Controllers
                 innerOrderbBasicSealMstEntity.First().BEARING_BRAND = innerOrderBasicSealPostEntity.BEARING_BRAND;
                 innerOrderbBasicSealMstEntity.First().BEARING_OTHER_INFO = innerOrderBasicSealPostEntity.BEARING_OTHER_INFO;
                 innerOrderbBasicSealMstEntity.First().INSTALL_DIRECTION = innerOrderBasicSealPostEntity.INSTALL_DIRECTION;
+                innerOrderbBasicSealMstEntity.First().DOUBLE_SEAL_PRESSURE = innerOrderBasicSealPostEntity.DOUBLE_SEAL_PRESSURE;
+                innerOrderbBasicSealMstEntity.First().SERIES = innerOrderBasicSealPostEntity.SERIES;
+                innerOrderbBasicSealMstEntity.First().MAIN_SHAFT_FORM = innerOrderBasicSealPostEntity.MAIN_SHAFT_FORM;
+                innerOrderbBasicSealMstEntity.First().PUMP_STEERING = innerOrderBasicSealPostEntity.PUMP_STEERING;
+                innerOrderbBasicSealMstEntity.First().ASSEMBLE_DIRECTION = innerOrderBasicSealPostEntity.ASSEMBLE_DIRECTION;
+                innerOrderbBasicSealMstEntity.First().LINE_LOCATION_DESCRIPTION = innerOrderBasicSealPostEntity.LINE_LOCATION_DESCRIPTION;
+                innerOrderbBasicSealMstEntity.First().DRAWING_CONFIRM = innerOrderBasicSealPostEntity.DRAWING_CONFIRM;
+                innerOrderbBasicSealMstEntity.First().LUBRICATING_FORM = innerOrderBasicSealPostEntity.LUBRICATING_FORM;
 
                 innerOrderOtherComponentMstEntity.First().BASE_TYPE = innerOrderOtherComponentPostEntity.BASE_TYPE;
                 innerOrderOtherComponentMstEntity.First().BASE_SPEC = innerOrderOtherComponentPostEntity.BASE_SPEC;

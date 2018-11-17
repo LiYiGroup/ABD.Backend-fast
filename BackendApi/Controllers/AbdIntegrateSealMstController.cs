@@ -4,12 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using BackendApi.DB;
 using Microsoft.AspNetCore.Cors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BackendApi.DB;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -132,10 +126,12 @@ namespace BackendApi.Controllers
 				isSuccess = false;
 				data = "No such data.";
 			}
-			JsonRes res = new JsonRes();
-			res.isSuccess = isSuccess;
-			res.data = data;
-			return JsonConvert.SerializeObject(res);
+            JsonRes res = new JsonRes
+            {
+                isSuccess = isSuccess,
+                data = data
+            };
+            return JsonConvert.SerializeObject(res);
 		}
 
         // POST api/abdintegratesealmst

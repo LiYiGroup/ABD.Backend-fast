@@ -38,9 +38,28 @@ namespace BackendApi.DB.DataModel
         public string BEARING_BRAND { get; set; }
         public string BEARING_OTHER_INFO { get; set; }
         public string INSTALL_DIRECTION { get; set; }
-
         public string ABD_SEAL_INFO { get; set; }
 
 
-    }
+		//2018-11-13新增字段
+
+		public string MATERIAL_BUMP { get; set; }
+		public string MATERIAL_FAN { get; set; }
+		public string MATERIAL_ROLLER { get; set; }
+		public string SEAL_FORM { get; set; }
+		public string SEAL_BRAND { get; set; }
+		public string SEAL_BRAND_MANUAL { get; set; }
+		public string DENSITY { get; set; }
+		public string FLANGE_LEVEL { get; set; }
+
+		public int    DOUBLE_SEAL_PRESSURE { get; set; }		
+		public string SERIES { get; set; }
+		public string MAIN_SHAFT_FORM { get; set; }
+		public string PUMP_STEERING { get; set; }
+		public string ASSEMBLE_DIRECTION { get; set; }
+		public string LINE_LOCATION_DESCRIPTION { get; set; }
+		public string DRAWING_CONFIRM { get; set; }
+		public string LUBRICATING_FORM { get; set; }
+
+	}
 }

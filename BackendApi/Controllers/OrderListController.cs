@@ -164,9 +164,11 @@ namespace BackendApi.Controllers
                 isSuccess = false;
                 data = "No such data.";
             }
-            JsonRes res = new JsonRes();
-            res.isSuccess = isSuccess;
-            res.data = data;
+            JsonRes res = new JsonRes
+            {
+                isSuccess = isSuccess,
+                data = data
+            };
             return JsonConvert.SerializeObject(res);
         }
     }
