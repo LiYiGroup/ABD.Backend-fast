@@ -109,7 +109,15 @@ namespace BackendApi.Controllers
             if (postedEntity.SEQ_ID == 0)
             {
                 // INSERT
-                postedEntity.SEQ_ID = myContext.ACCESSORIES_TEMPLATE.Select(m=>m.SEQ_ID).Max() + 1;
+                if (myContext.ACCESSORIES_TEMPLATE.Count() == 0)
+                {
+                    postedEntity.SEQ_ID = 1;
+                }
+                else
+                {
+                    postedEntity.SEQ_ID = myContext.ACCESSORIES_TEMPLATE.Select(m => m.SEQ_ID).Max() + 1;
+                }
+
                 myContext.ACCESSORIES_TEMPLATE.Add(postedEntity);
                 myContext.SaveChanges();
                 return "";
