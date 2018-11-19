@@ -147,6 +147,7 @@ namespace BackendApi.Controllers
                                             COUPLING_NAME = f2.DICT_NAME,
                                             SEAL_COOLER_NAME = g2.DICT_NAME,
 
+                                            FLANGES_STANDARD_NAME = h2.DICT_NAME,
                                             FLANGES_LEVEL_NAME = i2.DICT_NAME,
                                             COUPLING_HOOD_NAME = j2.DICT_NAME,
                                             BASE_NAME = k2.DICT_NAME,
