@@ -49,7 +49,140 @@ namespace BackendApi.Controllers
                                     .Where(d => d.BUMP_ID == BUMP_ID_T));
                     if (tempObj != "[]")
                     {
-                        returnJson = JsonConvert.SerializeObject(myContext.ORDER_LIST_DETAIL
+                        var orderListDetailEntity = from a in myContext.ORDER_LIST_DETAIL
+                                                    join b in myContext.M_DICT
+                                                    on a.MOTOR_BRAND equals b.DICT_ID into b1
+                                                    from b2 in b1.DefaultIfEmpty()
+
+                                                    join c in myContext.M_DICT
+                                                    on a.SEAL_FORM equals c.DICT_ID into c1
+                                                    from c2 in c1.DefaultIfEmpty()
+
+                                                    join d in myContext.M_DICT
+                                                    on a.SEAL_BRAND equals d.DICT_ID into d1
+                                                    from d2 in d1.DefaultIfEmpty()
+
+                                                    join e in myContext.M_DICT
+                                                    on a.ROLLER_BRAND equals e.DICT_ID into e1
+                                                    from e2 in e1.DefaultIfEmpty()
+
+                                                    join f in myContext.M_DICT
+                                                    on a.COUPLING equals f.DICT_ID into f1
+                                                    from f2 in f1.DefaultIfEmpty()
+
+                                                    join g in myContext.M_DICT
+                                                    on a.SEAL_COOLER equals g.DICT_ID into g1
+                                                    from g2 in g1.DefaultIfEmpty()
+
+                                                    join h in myContext.M_DICT
+                                                    on a.FLANGES_STANDARD equals h.DICT_ID into h1
+                                                    from h2 in h1.DefaultIfEmpty()
+
+                                                    join i in myContext.M_DICT
+                                                    on a.FLANGES_LEVEL equals i.DICT_ID into i1
+                                                    from i2 in i1.DefaultIfEmpty()
+
+                                                    join j in myContext.M_DICT
+                                                    on a.COUPLING_HOOD equals j.DICT_ID into j1
+                                                    from j2 in j1.DefaultIfEmpty()
+
+                                                    join k in myContext.M_DICT
+                                                    on a.BASE equals k.DICT_ID into k1
+                                                    from k2 in k1.DefaultIfEmpty()
+
+                                                    join l in myContext.M_DICT
+                                                    on a.ANCHOR_BOLT equals l.DICT_ID into l1
+                                                    from l2 in l1.DefaultIfEmpty()
+
+                                                    join m in myContext.M_DICT
+                                                    on a.PAINT equals m.DICT_ID into m1
+                                                    from m2 in m1.DefaultIfEmpty()
+
+                                                    join n in myContext.M_DICT
+                                                    on a.SURFACE_TREATMENT equals n.DICT_ID into n1
+                                                    from n2 in n1.DefaultIfEmpty()
+
+                                                    join o in myContext.M_DICT
+                                                    on a.PACKAGE equals o.DICT_ID into o1
+                                                    from o2 in o1.DefaultIfEmpty()
+
+                                                    join p in myContext.M_DICT
+                                                    on a.TRANSPORT equals p.DICT_ID into p1
+                                                    from p2 in p1.DefaultIfEmpty()
+
+                                                    select new ORDER_LIST_DETAIL_DICT_NAME
+                                                    {
+                                                        ORDER_NO = a.ORDER_NO,
+                                                        BUMP_ID = a.BUMP_ID,
+                                                        BUMP_NM = a.BUMP_NM,
+                                                        BUMP_TYPE = a.BUMP_TYPE,
+                                                        NUMBER = a.NUMBER,
+
+                                                        UNIT = a.UNIT,
+                                                        PRICE = a.PRICE,
+                                                        AMOUNT = a.AMOUNT,
+                                                        BUMP_SERIAL_NO = a.BUMP_SERIAL_NO,
+                                                        FLOW = a.FLOW,
+                                                        LIFT = a.LIFT,
+
+                                                        MATERIAL_BUMP = a.MATERIAL_BUMP,
+                                                        MATERIAL_FAN = a.MATERIAL_FAN,
+                                                        MATERIAL_ROLLER = a.MATERIAL_ROLLER,
+                                                        MOTOR_BRAND = a.MOTOR_BRAND,
+                                                        MOTOR_DEMAND = a.MOTOR_DEMAND,
+
+                                                        SEAL_FORM = a.SEAL_FORM,
+                                                        SEAL_BRAND = a.SEAL_BRAND,
+                                                        ROLLER_BRAND = a.ROLLER_BRAND,
+                                                        COUPLING = a.COUPLING,
+                                                        SEAL_COOLER = a.SEAL_COOLER,
+
+                                                        CAVITATION_ALLOWANCE = a.CAVITATION_ALLOWANCE,
+                                                        ACTUAL_BUMP_SPEED = a.ACTUAL_BUMP_SPEED,
+                                                        STATION = a.STATION,
+                                                        TEMPERATURE = a.TEMPERATURE,
+                                                        DENSITY = a.DENSITY,
+
+                                                        IN_PRESSURE = a.IN_PRESSURE,
+                                                        MEDIUM = a.MEDIUM,
+                                                        VISCOSITY = a.VISCOSITY,
+                                                        PARTICULATES = a.PARTICULATES,
+                                                        WORKING_PRESSURE = a.WORKING_PRESSURE,
+
+                                                        FLANGES_STANDARD = a.FLANGES_STANDARD,
+                                                        FLANGES_LEVEL = a.FLANGES_LEVEL,
+                                                        COUPLING_HOOD = a.COUPLING_HOOD,
+                                                        BASE = a.BASE,
+                                                        ANCHOR_BOLT = a.ANCHOR_BOLT,
+
+                                                        PAINT = a.PAINT,
+                                                        SURFACE_TREATMENT = a.SURFACE_TREATMENT,
+                                                        PACKAGE = a.PACKAGE,
+                                                        TRANSPORT = a.TRANSPORT,
+
+                                                        MOTOR_BRAND_NAME =  b2.DICT_NAME,
+                                                        SEAL_FORM_NAME =c2.DICT_NAME,
+                                                        SEAL_BRAND_NAME = d2.DICT_NAME,
+                                                        ROLLER_BRAND_NAME =e2.DICT_NAME,
+                                                        COUPLING_NAME = f2.DICT_NAME,
+                                                        SEAL_COOLER_NAME = g2.DICT_NAME,
+
+                                                        FLANGES_STANDARD_NAME = String.IsNullOrEmpty(h2.DICT_NAME) ? a.FLANGES_STANDARD : h2.DICT_NAME,
+                                                        FLANGES_LEVEL_NAME = String.IsNullOrEmpty(i2.DICT_NAME) ? a.FLANGES_LEVEL : i2.DICT_NAME,
+                                                        COUPLING_HOOD_NAME = String.IsNullOrEmpty(j2.DICT_NAME) ? a.COUPLING_HOOD : j2.DICT_NAME,
+                                                        BASE_NAME = String.IsNullOrEmpty(k2.DICT_NAME) ? a.BASE : k2.DICT_NAME,
+                                                        ANCHOR_BOLT_NAME = String.IsNullOrEmpty(l2.DICT_NAME) ? a.ANCHOR_BOLT : l2.DICT_NAME,
+
+                                                        PAINT_NAME = String.IsNullOrEmpty(m2.DICT_NAME) ? a.PAINT : m2.DICT_NAME,
+                                                        SURFACE_TREATMENT_NAME = String.IsNullOrEmpty(n2.DICT_NAME) ? a.SURFACE_TREATMENT : n2.DICT_NAME,
+                                                        PACKAGE_NAME = String.IsNullOrEmpty(o2.DICT_NAME) ? a.PACKAGE : o2.DICT_NAME,
+                                                        TRANSPORT_NAME = String.IsNullOrEmpty(p2.DICT_NAME) ? a.TRANSPORT: p2.DICT_NAME,
+
+                                                        SEAL_BRAND_MANUAL = String.IsNullOrEmpty(a.SEAL_BRAND_MANUAL) ? "" : a.SEAL_BRAND_MANUAL,
+                                                        SEAL_BRAND_SHOW = d2.DICT_NAME + (String.IsNullOrEmpty(a.SEAL_BRAND_MANUAL) ? "" : "-" + a.SEAL_BRAND_MANUAL),   //手动添加显示内容，否则显示数据字典名称
+                                                    };
+
+                        returnJson = JsonConvert.SerializeObject(orderListDetailEntity
                                     .Where(d => d.ORDER_NO == ORDER_NO_T)
                                     .Where(d => d.BUMP_ID == BUMP_ID_T).First());
                     }
@@ -126,7 +259,7 @@ namespace BackendApi.Controllers
         public ActionResult<string> Post([FromBody]JObject postObj)
         {
             // FROM WEB PAGE
-            ORDER_LIST_DETAIL orderListDetailPostEntity = postObj.GetValue("orderListDetailTableModel").ToObject<ORDER_LIST_DETAIL>();
+            ORDER_LIST_DETAIL_DICT_NAME orderListDetailPostEntity = postObj.GetValue("orderListDetailTableModel").ToObject<ORDER_LIST_DETAIL_DICT_NAME>();
             INNER_ORDER_BASIC_SEAL_MST innerOrderBasicSealPostEntity = postObj.GetValue("basicAndSealModel").ToObject<INNER_ORDER_BASIC_SEAL_MST>();
             INNER_ORDER_OTHER_COMPONENT_MST innerOrderOtherComponentPostEntity = postObj.GetValue("otherComponentModel").ToObject<INNER_ORDER_OTHER_COMPONENT_MST>();
 
@@ -191,8 +324,8 @@ namespace BackendApi.Controllers
                 innerOrderBasicSealPostEntity.MATERIAL_BUMP = orderListDetailPostEntity.MATERIAL_BUMP;
                 innerOrderBasicSealPostEntity.MATERIAL_FAN = orderListDetailPostEntity.MATERIAL_FAN;
                 innerOrderBasicSealPostEntity.MATERIAL_ROLLER = orderListDetailPostEntity.MATERIAL_ROLLER;
-                innerOrderBasicSealPostEntity.SEAL_FORM = orderListDetailPostEntity.SEAL_FORM;
-                innerOrderBasicSealPostEntity.SEAL_BRAND = orderListDetailPostEntity.SEAL_BRAND;
+                innerOrderBasicSealPostEntity.SEAL_FORM = orderListDetailPostEntity.SEAL_FORM_NAME;
+                innerOrderBasicSealPostEntity.SEAL_BRAND = orderListDetailPostEntity.SEAL_BRAND_NAME;
                 innerOrderBasicSealPostEntity.SEAL_BRAND_MANUAL = orderListDetailPostEntity.SEAL_BRAND_MANUAL;
                 innerOrderBasicSealPostEntity.NPSH = orderListDetailPostEntity.CAVITATION_ALLOWANCE;
                 innerOrderBasicSealPostEntity.BUMP_SPEED = orderListDetailPostEntity.ACTUAL_BUMP_SPEED;
@@ -203,12 +336,24 @@ namespace BackendApi.Controllers
                 innerOrderBasicSealPostEntity.VISCOSITY= orderListDetailPostEntity.VISCOSITY;
                 innerOrderBasicSealPostEntity.PARTICULATES = orderListDetailPostEntity.PARTICULATES;
                 innerOrderBasicSealPostEntity.WORKING_PRESSURE = orderListDetailPostEntity.WORKING_PRESSURE;
-                innerOrderBasicSealPostEntity.FLANGE_STANDARD= orderListDetailPostEntity.FLANGES_STANDARD;
-                innerOrderBasicSealPostEntity.FLANGE_LEVEL = orderListDetailPostEntity.FLANGES_LEVEL;
+                innerOrderBasicSealPostEntity.FLANGE_STANDARD= orderListDetailPostEntity.FLANGES_STANDARD_NAME;
+                innerOrderBasicSealPostEntity.FLANGE_LEVEL = orderListDetailPostEntity.FLANGES_LEVEL_NAME;
+                innerOrderBasicSealPostEntity.BEARING_BRAND = orderListDetailPostEntity.ROLLER_BRAND_NAME;
+                innerOrderBasicSealPostEntity.NEED_SEAL_COOLER_FLG = orderListDetailPostEntity.SEAL_COOLER_NAME;
 
 
                 innerOrderOtherComponentPostEntity.ORDER_NO = orderListDetailPostEntity.ORDER_NO;
                 innerOrderOtherComponentPostEntity.BUMP_ID = orderListDetailPostEntity.BUMP_ID;
+
+                innerOrderOtherComponentPostEntity.ELECTRIC_MOTER_TYPE = orderListDetailPostEntity.MOTOR_BRAND_NAME;
+                innerOrderOtherComponentPostEntity.COUPLING_TYPE = orderListDetailPostEntity.COUPLING_NAME;
+                innerOrderOtherComponentPostEntity.BASE_TYPE = orderListDetailPostEntity.BASE_NAME;
+                innerOrderOtherComponentPostEntity.COUPLING_HOOD_TYPE = orderListDetailPostEntity.COUPLING_HOOD_NAME;
+                innerOrderOtherComponentPostEntity.ANCHOR_BOLT_TYPE = orderListDetailPostEntity.ANCHOR_BOLT_NAME;
+                innerOrderOtherComponentPostEntity.COLOR_TYPE = orderListDetailPostEntity.PAINT_NAME;
+                innerOrderOtherComponentPostEntity.SURFACE_TREAT_TYPE = orderListDetailPostEntity.SURFACE_TREATMENT_NAME;
+                innerOrderOtherComponentPostEntity.PACKAGING_TYPE = orderListDetailPostEntity.PACKAGE_NAME;
+                innerOrderOtherComponentPostEntity.TRANSPORT_TYPE = orderListDetailPostEntity.TRANSPORT_NAME;
 
                 // TODO
 
@@ -229,8 +374,8 @@ namespace BackendApi.Controllers
                 innerOrderbBasicSealMstEntity.First().MATERIAL_BUMP = orderListDetailPostEntity.MATERIAL_BUMP;
                 innerOrderbBasicSealMstEntity.First().MATERIAL_FAN = orderListDetailPostEntity.MATERIAL_FAN;
                 innerOrderbBasicSealMstEntity.First().MATERIAL_ROLLER = orderListDetailPostEntity.MATERIAL_ROLLER;
-                innerOrderbBasicSealMstEntity.First().SEAL_FORM = orderListDetailPostEntity.SEAL_FORM;
-                innerOrderbBasicSealMstEntity.First().SEAL_BRAND = orderListDetailPostEntity.SEAL_BRAND;
+                innerOrderbBasicSealMstEntity.First().SEAL_FORM = orderListDetailPostEntity.SEAL_FORM_NAME;
+                innerOrderbBasicSealMstEntity.First().SEAL_BRAND = orderListDetailPostEntity.SEAL_BRAND_NAME;
                 innerOrderbBasicSealMstEntity.First().SEAL_BRAND_MANUAL = orderListDetailPostEntity.SEAL_BRAND_MANUAL;
                 innerOrderbBasicSealMstEntity.First().NPSH = orderListDetailPostEntity.CAVITATION_ALLOWANCE;
                 innerOrderbBasicSealMstEntity.First().BUMP_SPEED = orderListDetailPostEntity.ACTUAL_BUMP_SPEED;
@@ -241,18 +386,20 @@ namespace BackendApi.Controllers
                 innerOrderbBasicSealMstEntity.First().VISCOSITY = orderListDetailPostEntity.VISCOSITY;
                 innerOrderbBasicSealMstEntity.First().PARTICULATES = orderListDetailPostEntity.PARTICULATES;
                 innerOrderbBasicSealMstEntity.First().WORKING_PRESSURE = orderListDetailPostEntity.WORKING_PRESSURE;
-                innerOrderbBasicSealMstEntity.First().FLANGE_STANDARD = orderListDetailPostEntity.FLANGES_STANDARD;
-                innerOrderbBasicSealMstEntity.First().FLANGE_LEVEL = orderListDetailPostEntity.FLANGES_LEVEL;
+                innerOrderbBasicSealMstEntity.First().FLANGE_STANDARD = orderListDetailPostEntity.FLANGES_STANDARD_NAME;
+                innerOrderbBasicSealMstEntity.First().FLANGE_LEVEL = orderListDetailPostEntity.FLANGES_LEVEL_NAME;
+                innerOrderbBasicSealMstEntity.First().BEARING_BRAND = orderListDetailPostEntity.ROLLER_BRAND_NAME;
+                innerOrderbBasicSealMstEntity.First().NEED_SEAL_COOLER_FLG = orderListDetailPostEntity.SEAL_COOLER_NAME;
 
-                innerOrderOtherComponentMstEntity.First().ELECTRIC_MOTER_TYPE = orderListDetailPostEntity.MOTOR_BRAND;
-                innerOrderOtherComponentMstEntity.First().COUPLING_TYPE = orderListDetailPostEntity.COUPLING;
-                innerOrderOtherComponentMstEntity.First().BASE_TYPE = orderListDetailPostEntity.BASE;
-                innerOrderOtherComponentMstEntity.First().COUPLING_HOOD_TYPE = orderListDetailPostEntity.COUPLING_HOOD;
-                innerOrderOtherComponentMstEntity.First().ANCHOR_BOLT_TYPE = orderListDetailPostEntity.ANCHOR_BOLT;
-                innerOrderOtherComponentMstEntity.First().COLOR_TYPE = orderListDetailPostEntity.PAINT;
-                innerOrderOtherComponentMstEntity.First().SURFACE_TREAT_TYPE = orderListDetailPostEntity.SURFACE_TREATMENT;
-                innerOrderOtherComponentMstEntity.First().PACKAGING_TYPE = orderListDetailPostEntity.PACKAGE;
-                innerOrderOtherComponentMstEntity.First().TRANSPORT_TYPE = orderListDetailPostEntity.TRANSPORT;
+                innerOrderOtherComponentMstEntity.First().ELECTRIC_MOTER_TYPE = orderListDetailPostEntity.MOTOR_BRAND_NAME;
+                innerOrderOtherComponentMstEntity.First().COUPLING_TYPE = orderListDetailPostEntity.COUPLING_NAME;
+                innerOrderOtherComponentMstEntity.First().BASE_TYPE = orderListDetailPostEntity.BASE_NAME;
+                innerOrderOtherComponentMstEntity.First().COUPLING_HOOD_TYPE = orderListDetailPostEntity.COUPLING_HOOD_NAME;
+                innerOrderOtherComponentMstEntity.First().ANCHOR_BOLT_TYPE = orderListDetailPostEntity.ANCHOR_BOLT_NAME;
+                innerOrderOtherComponentMstEntity.First().COLOR_TYPE = orderListDetailPostEntity.PAINT_NAME;
+                innerOrderOtherComponentMstEntity.First().SURFACE_TREAT_TYPE = orderListDetailPostEntity.SURFACE_TREATMENT_NAME;
+                innerOrderOtherComponentMstEntity.First().PACKAGING_TYPE = orderListDetailPostEntity.PACKAGE_NAME;
+                innerOrderOtherComponentMstEntity.First().TRANSPORT_TYPE = orderListDetailPostEntity.TRANSPORT_NAME;
 
                 // 其他项目
 
