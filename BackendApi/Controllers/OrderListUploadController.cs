@@ -176,8 +176,8 @@ namespace BackendApi.Controllers
                                 entityObjForBump.Add("NUMBER", Convert.ToInt32(NUMBER));
                                 entityObjForBump.Add("FLOW", Convert.ToInt32(FLOW));
                                 entityObjForBump.Add("LIFT", Convert.ToInt32(LIFT));
-                                entityObjForBump.Add("MATERIAL", MATERIAL);
-                                entityObjForBump.Add("SEAL", SEAL);
+                                //entityObjForBump.Add("MATERIAL", MATERIAL);
+                                //entityObjForBump.Add("SEAL", SEAL);
                                 entityObjForBump.Add("BUMP_SERIAL_NO", BUMP_SERIAL_NO);
                                 entityObjForBump.Add("REMARK", REMARK);
 
@@ -243,6 +243,17 @@ namespace BackendApi.Controllers
                                     orderListDetailEntity.First().PACKAGE = excelOrderListDetailEntity.PACKAGE;
                                     orderListDetailEntity.First().TRANSPORT = excelOrderListDetailEntity.TRANSPORT;
 
+                                    myContext.SaveChanges();
+                                }
+
+                                var orderAttach = myContext.ORDER_LIST_ATTACHMENT.Where(d => d.ORDER_NO.Equals(excelOrderListDetailEntity.ORDER_NO));
+                                if (orderListDetailEntity.Count() == 0)
+                                {
+                                    // INSERT
+                                    ORDER_LIST_ATTACHMENT orderListAttach = new ORDER_LIST_ATTACHMENT();
+                                    orderListAttach.ORDER_NO = excelOrderListDetailEntity.ORDER_NO;
+
+                                    myContext.ORDER_LIST_ATTACHMENT.Add(orderListAttach);
                                     myContext.SaveChanges();
                                 }
                             }

@@ -160,12 +160,12 @@ namespace BackendApi.Controllers
                                                         PACKAGE = a.PACKAGE,
                                                         TRANSPORT = a.TRANSPORT,
 
-                                                        MOTOR_BRAND_NAME =  b2.DICT_NAME,
-                                                        SEAL_FORM_NAME =c2.DICT_NAME,
-                                                        SEAL_BRAND_NAME = d2.DICT_NAME,
-                                                        ROLLER_BRAND_NAME =e2.DICT_NAME,
-                                                        COUPLING_NAME = f2.DICT_NAME,
-                                                        SEAL_COOLER_NAME = g2.DICT_NAME,
+                                                        MOTOR_BRAND_NAME = String.IsNullOrEmpty(b2.DICT_NAME) ? a.MOTOR_BRAND : b2.DICT_NAME,
+                                                        SEAL_FORM_NAME = String.IsNullOrEmpty(c2.DICT_NAME) ? a.SEAL_FORM : c2.DICT_NAME,
+                                                        SEAL_BRAND_NAME = String.IsNullOrEmpty(d2.DICT_NAME) ? a.SEAL_BRAND : d2.DICT_NAME,
+                                                        ROLLER_BRAND_NAME = String.IsNullOrEmpty(e2.DICT_NAME) ? a.ROLLER_BRAND: e2.DICT_NAME,
+                                                        COUPLING_NAME = String.IsNullOrEmpty(f2.DICT_NAME) ? a.COUPLING : f2.DICT_NAME,
+                                                        SEAL_COOLER_NAME = String.IsNullOrEmpty(g2.DICT_NAME) ? a.SEAL_COOLER: g2.DICT_NAME,
 
                                                         FLANGES_STANDARD_NAME = String.IsNullOrEmpty(h2.DICT_NAME) ? a.FLANGES_STANDARD : h2.DICT_NAME,
                                                         FLANGES_LEVEL_NAME = String.IsNullOrEmpty(i2.DICT_NAME) ? a.FLANGES_LEVEL : i2.DICT_NAME,
