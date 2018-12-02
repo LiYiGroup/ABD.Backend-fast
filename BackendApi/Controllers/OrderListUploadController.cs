@@ -131,7 +131,7 @@ namespace BackendApi.Controllers
                                 // 序号（校验用）
                                 String NO = getCellValue(sheet, "A" + (BUMP_OFFSET + i), CELL_TYP_STRING);
                                 // 序号校验（还应考虑不是数字Convert失败的情况，未写）
-                                if (Convert.ToInt32(NO) != i+1) { return ""; }
+                                if (Convert.ToInt32(NO) != i + 1) { return ""; }
                                 // 泵名称
                                 String BUMP_NM = getCellValue(sheet, "B" + (BUMP_OFFSET + i), CELL_TYP_STRING);
                                 // 工位
@@ -161,7 +161,7 @@ namespace BackendApi.Controllers
                                 }
                                 else
                                 {
-                                   BUMP_ID = BUMP_TYPE + "_" + MATERIAL;
+                                    BUMP_ID = BUMP_TYPE + "_" + MATERIAL;
                                 }
 
                                 // 构造JObject，并保存水泵信息至数据库中
@@ -245,17 +245,17 @@ namespace BackendApi.Controllers
 
                                     myContext.SaveChanges();
                                 }
+                            }
 
-                                var orderAttach = myContext.ORDER_LIST_ATTACHMENT.Where(d => d.ORDER_NO.Equals(excelOrderListDetailEntity.ORDER_NO));
-                                if (orderListDetailEntity.Count() == 0)
-                                {
-                                    // INSERT
-                                    ORDER_LIST_ATTACHMENT orderListAttach = new ORDER_LIST_ATTACHMENT();
-                                    orderListAttach.ORDER_NO = excelOrderListDetailEntity.ORDER_NO;
+                            var orderAttach = myContext.ORDER_LIST_ATTACHMENT.Where(d => d.ORDER_NO.Equals(excelOrderListMstEntity.ORDER_NO));
+                            if (orderAttach.Count() == 0)
+                            {
+                                // INSERT
+                                ORDER_LIST_ATTACHMENT orderListAttach = new ORDER_LIST_ATTACHMENT();
+                                orderListAttach.ORDER_NO = excelOrderListMstEntity.ORDER_NO;
 
-                                    myContext.ORDER_LIST_ATTACHMENT.Add(orderListAttach);
-                                    myContext.SaveChanges();
-                                }
+                                myContext.ORDER_LIST_ATTACHMENT.Add(orderListAttach);
+                                myContext.SaveChanges();
                             }
                         }
                     }
