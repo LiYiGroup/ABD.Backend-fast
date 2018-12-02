@@ -406,7 +406,7 @@ namespace BackendApi.Controllers
                 ORDER_LIST_DETAIL postedEntity1 = new ORDER_LIST_DETAIL();
                 postedEntity1.ORDER_NO = postedEntity.ORDER_NO;
                 // MAKE BUMP ID
-                postedEntity1.BUMP_ID = postedEntity.BUMP_TYPE + "_" + postedEntity.MATERIAL_BUMP + "_" + postedEntity.MATERIAL_FAN + "_" + postedEntity.MATERIAL_ROLLER;
+                postedEntity1.BUMP_ID = postedEntity.BUMP_TYPE + "_" + postedEntity.MATERIAL_BUMP;
 
                 postedEntity1.BUMP_NM = postedEntity.BUMP_NM;
                 postedEntity1.BUMP_TYPE = postedEntity.BUMP_TYPE;

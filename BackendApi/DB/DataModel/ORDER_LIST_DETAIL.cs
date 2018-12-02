@@ -46,8 +46,8 @@ namespace BackendApi.DB.DataModel
 
         public string FLANGES_STANDARD { get; set; }
         public string FLANGES_LEVEL { get; set; }
-        public string COUPLING_HOOD { get; set; }
         public string BASE { get; set; }
+        public string COUPLING_HOOD { get; set; }
         public string ANCHOR_BOLT { get; set; }
 
         public string PAINT { get; set; }
